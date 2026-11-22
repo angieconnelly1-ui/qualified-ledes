@@ -4,7 +4,7 @@ import StoryCard from '../../components/StoryCard.astro';
 import SignupForm from '../../components/SignupForm.astro';
 import { getStories, formatDate } from '../../data/stories';
 import { topicLabel, audienceLabel, heatInfo, TOPICS, topicUrl } from '../../data/taxonomy';
-import { SITE } from '../../data/site';
+import { SITE, helpLink } from '../../data/site';
 import { getGuides } from '../../data/guides';
 
 export async function getStaticPaths() {
@@ -50,7 +50,7 @@ const crumbs = {
 <Base title={d.headline} description={d.dek} type="article" published={published} jsonLd={[article, crumbs]}>
   <div class="layout">
     <main id="content">
-      <article class="panel" data-pagefind-body style="padding:32px;display:flex;flex-direction:column;gap:16px">
+      <article class="panel" data-pagefind-body data-read-type="story" style="padding:32px;display:flex;flex-direction:column;gap:16px">
         <nav aria-label="Breadcrumb" class="label" style="margin:0">
           <a href="/">Home</a> / <a href={topicUrl(d.topic)}>{topicLabel(d.topic)}</a>
         </nav>
@@ -88,7 +88,7 @@ const crumbs = {
           <button type="button" class="tool-btn" data-copy={`/stories/${story.id}/`}><span data-copy-label>Copy link</span></button>
           <a class="tool-btn" style="text-decoration:none" data-share-linkedin href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} target="_blank" rel="noopener">Share on LinkedIn</a>
         </div>
-        <p style="margin:0;font-size:16px">Source: <a href={d.url} rel="noopener" target="_blank">{d.source}</a>. Summary written by {SITE.name}; read the original for the full story.</p>
+        <p style="margin:0;font-size:16px">Source: <a href={d.url} rel="noopener" target="_blank" data-source-link={story.id} data-source-name={d.source} data-link-location="story_page">{d.source}</a>. Summary written by {SITE.name}; read the original for the full story.</p>
         <p style="margin:0;font-size:14px;color:var(--muted)">By <a href="/about/#angie">{SITE.author}</a>. Researched with AI tools and reviewed before publishing. <a href="/editorial-policy/">How we work</a>.</p>
       </article>
 
@@ -102,7 +102,7 @@ const crumbs = {
 
       <section class="panel" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
         <p style="margin:0;font-size:16px;flex:1 1 320px"><strong>Want help with this?</strong> Get a free Google and AI visibility check for your business or nonprofit.</p>
-        <a class="btn btn-hot" href={SITE.helpUrl} rel="noopener">Get the free check</a>
+        <a class="btn btn-hot" href={helpLink('story', story.id)} rel="noopener" data-free-check="story">Get the free check</a>
       </section>
 
       {related.length > 0 && (

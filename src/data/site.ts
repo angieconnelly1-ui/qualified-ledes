@@ -15,6 +15,16 @@ export const SITE = {
   gaId: 'G-EVFKT2CZCT',
 };
 
+// Free-check link with UTMs, so angieconnelly.com's GA4 can tie its conversions back to this site.
+export function helpLink(content: string, slug?: string): string {
+  const u = new URL(SITE.helpUrl);
+  u.searchParams.set('utm_source', 'qualifiedledes');
+  u.searchParams.set('utm_medium', 'referral');
+  u.searchParams.set('utm_campaign', 'free_visibility_check');
+  u.searchParams.set('utm_content', slug ? `${content}-${slug}` : content);
+  return u.href;
+}
+
 // The free resource of the week. Swap it out with each roundup.
 export const MAGNET = {
   title: 'The 10-minute cookie consent check',

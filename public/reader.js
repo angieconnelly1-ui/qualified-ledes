@@ -147,6 +147,17 @@
     }
     var li = e.target.closest('[data-share-linkedin]');
     if (li) track('share', { method: 'linkedin', content_id: location.pathname });
+    var src = e.target.closest('[data-source-link]');
+    if (src) {
+      track('story_outbound_click', {
+        story_id: src.dataset.sourceLink,
+        source_name: src.dataset.sourceName || '',
+        link_location: src.dataset.linkLocation || '',
+        link_url: src.href,
+      });
+    }
+    var check = e.target.closest('[data-free-check]');
+    if (check) track('free_check_click', { link_location: check.dataset.freeCheck, page_path: location.pathname });
     var choice = e.target.closest('[data-consent-choice]');
     if (choice) {
       var v = choice.dataset.consentChoice;
@@ -171,8 +182,45 @@
     }
   }
 
+  // ----- Article read: 75% of a story, guide or roundup, once per page view -----
+  function readTracking() {
+    var el = document.querySelector('[data-read-type]');
+    if (!el) return;
+    var fired = false;
+    var check = function () {
+      if (fired) return;
+      var rect = el.getBoundingClientRect();
+      var total = rect.height;
+      if (total <= 0) return;
+      var seen = Math.min(window.innerHeight - rect.top, total);
+      if (seen / total >= 0.75) {
+        fired = true;
+        track('article_read', { content_type: el.dataset.readType, page_path: location.pathname });
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+    var ticking = false;
+    var onScroll = function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { ticking = false; check(); });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // Short pieces can be fully visible without scrolling: count them after 15 seconds on the page.
+    setTimeout(check, 15000);
+  }
+
+  // ----- Contact form -----
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (form && form.getAttribute && form.getAttribute('name') === 'contact') {
+      track('contact_submit', { page_path: location.pathname });
+    }
+  });
+
   renderSaves();
   renderDone();
   markNew();
   consentBar();
+  readTracking();
 })();

@@ -35,7 +35,7 @@ const path = `/stories/${story.id}/`;
   {d.take && <p style="font-style:italic"><strong>Angie's take:</strong> {d.take}</p>}
   <div class="card-actions">
     <a class="source" href={path}>Full lede</a>
-    <a class="source" href={d.url} rel="noopener" target="_blank">Read it at {d.source}</a>
+    <a class="source" href={d.url} rel="noopener" target="_blank" data-source-link={story.id} data-source-name={d.source} data-link-location="card">Read it at {d.source}</a>
     <span class="card-tools">
       <button type="button" class="tool-btn" data-save={story.id} aria-pressed="false" aria-label={`Save: ${d.headline}`}>
         <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z" /></svg>

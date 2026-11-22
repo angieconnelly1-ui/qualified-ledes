@@ -6,7 +6,7 @@ import { render } from 'astro:content';
 import { getGuides } from '../../data/guides';
 import { getStories, formatDate } from '../../data/stories';
 import { TOPICS, topicLabel, topicUrl, audienceLabel } from '../../data/taxonomy';
-import { SITE } from '../../data/site';
+import { SITE, helpLink } from '../../data/site';
 
 export async function getStaticPaths() {
   const guides = await getGuides();
@@ -56,7 +56,7 @@ if (d.faq.length) {
 <Base title={d.seoTitle ?? d.title} description={d.description} type="article" published={d.published} jsonLd={jsonLd}>
   <div class="layout">
     <main id="content">
-      <article data-pagefind-body class="panel prose guide" style="max-width:none;padding:32px;display:flex;flex-direction:column;gap:6px">
+      <article data-pagefind-body data-read-type="guide" class="panel prose guide" style="max-width:none;padding:32px;display:flex;flex-direction:column;gap:6px">
         <nav aria-label="Breadcrumb" class="label"><a href="/guides/">Guides</a> / <a href={topicUrl(d.topic)}>{topicLabel(d.topic)}</a></nav>
         <h1 class="display" style="margin:8px 0">{d.title}</h1>
         <p data-pagefind-ignore style="margin:0;font-size:14px;color:var(--muted)">For {audienceLabel(d.audience)} readers. By <a href="/about/#angie">{SITE.author}</a>. Updated <time datetime={d.updated}>{formatDate(d.updated, { month: 'long', day: 'numeric', year: 'numeric' })}</time>.</p>
@@ -86,7 +86,7 @@ if (d.faq.length) {
 
       <section class="panel" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
         <p style="margin:0;font-size:16px;flex:1 1 320px"><strong>Want a second set of eyes?</strong> Get a free Google and AI visibility check for your business or nonprofit.</p>
-        <a class="btn btn-hot" href={SITE.helpUrl} rel="noopener">Get the free check</a>
+        <a class="btn btn-hot" href={helpLink('guide', guide.id)} rel="noopener" data-free-check="guide">Get the free check</a>
       </section>
 
       {related.length > 0 && (

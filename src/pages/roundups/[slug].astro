@@ -20,7 +20,7 @@ const picks = roundup.data.picks.map((id) => all.find((s) => s.id === id)).filte
     <p class="subtag" style="max-width:760px;font-size:19px">{roundup.data.intro}</p>
   </header>
   <div class="layout">
-    <main id="content" class="grid">
+    <main id="content" class="grid" data-read-type="roundup">
       {picks.map((s, i) => <StoryCard story={s} lead={i === 0} headingLevel="h2" />)}
     </main>
     <Sidebar />

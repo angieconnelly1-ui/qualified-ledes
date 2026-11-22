@@ -150,6 +150,7 @@ const ld = {
           document.documentElement.dataset.theme = next;
           try { localStorage.setItem('ql-theme', next); } catch (e) {}
           label();
+          if (window.qlTrack) window.qlTrack('theme_toggle', { theme: next });
         });
       })();
     </script>
