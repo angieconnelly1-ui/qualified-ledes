@@ -12,7 +12,7 @@ export const SITE = {
   helpUrl: 'https://angieconnelly.com/free-visibility-check',
   ogImage: '/og-default.png',
   // GA4 Measurement ID (G-XXXXXXX). Leave empty to load no analytics.
-  gaId: 'G-EVFKT2CZCT',
+  gaId: 'G-JMRQ1ZD4XF',
 };
 
 // Free-check link with UTMs, so angieconnelly.com's GA4 can tie its conversions back to this site.
