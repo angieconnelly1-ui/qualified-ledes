@@ -18,11 +18,15 @@ const H = headingLevel;
     <span class={`stamp heat-${d.heat}`}>{heatInfo(d.heat).stamp}</span>
     <span><a href={`/topics/${d.topic}/`}>{topicLabel(d.topic)}</a> / {audienceLabel(d.audience)}</span>
   </div>
-  <H class="display">{d.headline}</H>
+  <H class="display"><a href={`/stories/${story.id}/`} style="text-decoration:none">{d.headline}</a></H>
   <p>{d.dek}</p>
   <div class="do-this">
     <span class="label">Do this</span>
     <p>{d.doThis}</p>
   </div>
-  <a class="source" href={d.url} rel="noopener" target="_blank">Read it at {d.source}</a>
+  {d.take && <p style="font-style:italic"><strong>Angie's take:</strong> {d.take}</p>}
+  <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:auto">
+    <a class="source" style="margin-top:0" href={`/stories/${story.id}/`}>Full lede</a>
+    <a class="source" style="margin-top:0" href={d.url} rel="noopener" target="_blank">Read it at {d.source}</a>
+  </div>
 </article>

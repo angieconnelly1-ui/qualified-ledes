@@ -13,10 +13,13 @@ const stories = defineCollection({
     audience: z.enum(['main', 'trade', 'both']),
     headline: z.string(),
     dek: z.string(),
+    why: z.string().optional(),
     doThis: z.string(),
     source: z.string(),
     url: z.string().url(),
     featured: z.boolean().optional(),
+    // Optional first-person note from Angie, added during review.
+    take: z.string().optional(),
   }),
 });
 

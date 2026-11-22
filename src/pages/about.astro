@@ -16,7 +16,9 @@ import { HEATS } from '../data/taxonomy';
     <h2 class="display">How stories are picked</h2>
     <p>New stories are added every weekday, once or twice a day, from trade press, platform announcements, research and local business news. Summaries are written in our own words, and every story links to its original source so you can read the full piece. Research is done with help from AI tools, and every story is reviewed by a person before it is published.</p>
     <p>Each week, the best stories go out as the weekly roundup. <a href="/subscribe/">Subscribe free</a>.</p>
-    <h2 class="display">Who is behind it</h2>
-    <p>{SITE.name} is curated by <a href={SITE.authorUrl}>{SITE.author}</a>, a marketing and revenue operations consultant in Richmond, Virginia.</p>
+    <h2 class="display" id="angie">Who is behind it</h2>
+    <p>{SITE.name} is curated by {SITE.author}. {SITE.authorBio}</p>
+    <p>Find Angie on <a href={SITE.authorLinkedIn} rel="me noopener">LinkedIn</a> or at <a href={SITE.authorUrl} rel="me noopener">angieconnelly.com</a>.</p>
+    <p>Read our <a href="/editorial-policy/">editorial policy</a>, or <a href="/contact/">send a tip or correction</a>.</p>
   </main>
 </Base>

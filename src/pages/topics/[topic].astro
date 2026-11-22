@@ -10,8 +10,36 @@ export function getStaticPaths() {
 }
 const { topic } = Astro.props;
 const stories = (await getStories()).filter((s) => s.data.topic === topic.id);
+const pageUrl = new URL(`/topics/${topic.id}/`, Astro.site).href;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `${topic.label} news`,
+    description: topic.blurb,
+    url: pageUrl,
+    isPartOf: { '@id': 'https://qualifiedledes.com/#website' },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: stories.slice(0, 20).map((s, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: new URL(`/stories/${s.id}/`, Astro.site).href,
+        name: s.data.headline,
+      })),
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Topics', item: 'https://qualifiedledes.com/topics/' },
+      { '@type': 'ListItem', position: 2, name: topic.label, item: pageUrl },
+    ],
+  },
+];
 ---
-<Base title={`${topic.label} news`} description={`${topic.blurb} Daily ledes from Qualified Ledes.`}>
+<Base title={`${topic.label} news`} description={`${topic.blurb} Daily ledes from Qualified Ledes.`} jsonLd={jsonLd}>
   <header style="display:flex;flex-direction:column;gap:8px">
     <p class="label" style="margin:0"><a href="/topics/">Topics</a></p>
     <h1 class="display" style="margin:0;font-size:clamp(40px,6vw,72px);line-height:1">{topic.label}</h1>

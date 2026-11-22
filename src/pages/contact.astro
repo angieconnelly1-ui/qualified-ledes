@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Contact" description="Send Qualified Ledes a tip, a correction or a question.">
+  <main id="content" style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+    <div class="prose" style="flex:1 1 400px">
+      <h1 class="display">Get in touch</h1>
+      <p>Send a story tip, a correction, a sponsorship question or a note. We read everything.</p>
+    </div>
+    <section class="panel signup" style="flex:1 1 360px;display:flex;flex-direction:column;gap:12px" aria-labelledby="contact-h">
+      <h2 id="contact-h" class="display">Send a message</h2>
+      <form name="contact" method="POST" action="/contact/thanks/" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden-field"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+        <label for="c-name" class="label">Name</label>
+        <input id="c-name" name="name" type="text" autocomplete="name" required style="min-height:44px;padding:0 12px;border:var(--bw) solid var(--ink);border-radius:var(--radius);background:var(--paper);color:var(--ink);font:16px var(--sans)" />
+        <label for="c-email" class="label">Email</label>
+        <input id="c-email" name="email" type="email" autocomplete="email" required />
+        <label for="c-topic" class="label">What is it about?</label>
+        <select id="c-topic" name="topic" style="min-height:44px;padding:0 12px;border:var(--bw) solid var(--ink);border-radius:var(--radius);background:var(--paper);color:var(--ink);font:16px var(--sans)">
+          <option>Story tip</option>
+          <option>Correction</option>
+          <option>Sponsorship</option>
+          <option>Something else</option>
+        </select>
+        <label for="c-msg" class="label">Message</label>
+        <textarea id="c-msg" name="message" rows="6" required style="padding:10px 12px;border:var(--bw) solid var(--ink);border-radius:var(--radius);background:var(--paper);color:var(--ink);font:16px var(--sans)"></textarea>
+        <button type="submit" class="btn btn-hot">Send</button>
+      </form>
+    </section>
+  </main>
+</Base>

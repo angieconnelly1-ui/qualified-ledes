@@ -7,8 +7,11 @@
 - [Archive](https://qualifiedledes.com/archive/): every story, newest first
 - [Weekly roundups](https://qualifiedledes.com/roundups/): the week's best stories
 - [Topics](https://qualifiedledes.com/topics/): AI search and SEO, local SEO and Google Business Profile, ads and social, websites and tools, nonprofits, B2B and MSP, privacy and consent, Richmond and Virginia, pricing and offers
-- [About](https://qualifiedledes.com/about/): how stories are picked and written
+- [About](https://qualifiedledes.com/about/): who curates the site
+- [Editorial policy](https://qualifiedledes.com/editorial-policy/): how stories are picked, written, reviewed and corrected, and how AI is used
+- Story pages live at https://qualifiedledes.com/stories/<slug>/ and each one links its original source
 
 ## Feeds
+- [News sitemap](https://qualifiedledes.com/news-sitemap.xml): stories from the last two days
 - [Weekly roundup RSS](https://qualifiedledes.com/rss.xml)
 - [Daily stories RSS](https://qualifiedledes.com/stories.xml)
