@@ -350,3 +350,16 @@ fieldset.plain legend { margin-bottom: 8px; }
   [data-theme='jazz'] .card.is-lead h2, [data-theme='jazz'] .card.is-lead h3 { text-transform: none; }
   [data-theme='jazz'] .tagline { font-size: 18px; }
 }
+
+/* Filters collapse behind one button on phones */
+.filter-toggle { display: none; gap: 8px; align-self: flex-start; }
+.filter-body { display: flex; flex-direction: column; gap: 10px; }
+@media (max-width: 640px) {
+  .filter-toggle { display: inline-flex; }
+  .filters:not(.is-open) .filter-body { display: none; }
+  .filters:not(.is-filtered) .filter-status { display: none; }
+  .filters.is-open .filter-body .topic-row { flex-wrap: wrap; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  .filters.is-open .more-filters-body .filter-row { flex-wrap: wrap; overflow: visible; }
+  .filters.is-open { background: var(--card); border: var(--bw) solid var(--line); border-radius: var(--radius); padding: 14px; }
+  .filters.is-filtered .filter-toggle { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+}

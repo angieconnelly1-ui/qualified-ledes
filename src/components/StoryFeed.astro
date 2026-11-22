@@ -9,6 +9,11 @@ const { stories, showTopicFilter = true, leadFirst = true } = Astro.props;
 const groups = groupByDate(stories);
 ---
 <div class="filters" data-feed-filters>
+  <button type="button" class="btn btn-sm filter-toggle" data-filter-toggle aria-expanded="false" aria-controls="feed-filter-body">
+    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4" /></svg>
+    <span data-filter-toggle-label>Filter ledes</span>
+  </button>
+  <div class="filter-body" id="feed-filter-body">
   {showTopicFilter && (
     <div class="filter-row topic-row" role="group" aria-label="Filter by topic">
       <button type="button" class="chip" data-group="topic" data-value="all" aria-pressed="true">All topics</button>
@@ -32,6 +37,7 @@ const groups = groupByDate(stories);
       <p class="heat-key">{HEATS.map((h) => <span><span class={`stamp heat-${h.id}`}>{h.label}</span> {h.meaning}</span>)}</p>
     </div>
   </details>
+  </div>
   <div class="filter-status">
     <span aria-live="polite" data-feed-count>Showing {stories.length} of {stories.length} ledes</span>
     <button type="button" class="btn btn-plain" data-feed-reset hidden>Clear filters</button>
@@ -80,6 +86,13 @@ const groups = groupByDate(stories);
     }
     applyPrefs(prefs);
     ['aud', 'topic', 'heat'].forEach(function (k) { if (params.get(k)) state[k] = params.get(k); });
+    var toggle = root.querySelector('[data-filter-toggle]');
+    var toggleLabel = root.querySelector('[data-filter-toggle-label]');
+    if (toggle) toggle.addEventListener('click', function () {
+      var open = !root.classList.contains('is-open');
+      root.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    });
     var more = root.querySelector('[data-more-filters]');
     if (more && (state.aud !== 'all' || state.heat !== 'all')) more.open = true;
     document.addEventListener('ql:prefs', function (e) { applyPrefs(e.detail); apply(); });
@@ -104,6 +117,11 @@ const groups = groupByDate(stories);
       var filtered = state.aud !== 'all' || state.topic !== 'all' || state.heat !== 'all';
       root.querySelector('[data-feed-count]').textContent = 'Showing ' + shown + ' of ' + total + ' ledes';
       root.querySelector('[data-feed-reset]').hidden = !filtered;
+      root.classList.toggle('is-filtered', filtered);
+      if (toggleLabel) {
+        var n = ['aud', 'topic', 'heat'].filter(function (k) { return state[k] !== 'all'; }).length;
+        toggleLabel.textContent = n ? 'Filter ledes (' + n + ' on)' : 'Filter ledes';
+      }
       var empty = feed.querySelector('[data-feed-empty]');
       if (empty) empty.hidden = shown > 0 || total === 0;
       var q = new URLSearchParams();
