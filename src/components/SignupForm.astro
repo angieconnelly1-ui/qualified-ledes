@@ -1,11 +1,11 @@
 ---
 // Netlify Forms collects signups until an email tool is chosen. Export the list from Netlify later.
 interface Props { id?: string; heading?: string; }
-const { id = 'signup', heading = 'Get the weekly roundup' } = Astro.props;
+const { id = 'signup', heading = 'Join the early list' } = Astro.props;
 ---
 <section class="panel signup" id={id} aria-labelledby={`${id}-h`} style="display:flex;flex-direction:column;gap:12px">
   <h2 id={`${id}-h`} class="display">{heading}</h2>
-  <p>One email a week: the stories that mattered, what to do about them, and a free resource. Unsubscribe anytime.</p>
+  <p>The weekly email is coming soon. Join now to get the first issue and early access to free templates. No spam, unsubscribe anytime. <a href="/privacy/">Privacy</a></p>
   <form name="subscribe" method="POST" action="/subscribe/thanks/" data-netlify="true" netlify-honeypot="bot-field">
     <input type="hidden" name="form-name" value="subscribe" />
     <p class="hidden-field"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
@@ -16,6 +16,6 @@ const { id = 'signup', heading = 'Get the weekly roundup' } = Astro.props;
       <label><input type="radio" name="reader" value="main" checked /> Business owner or nonprofit</label>
       <label><input type="radio" name="reader" value="trade" /> Marketer</label>
     </fieldset>
-    <button type="submit" class="btn btn-hot">Send me the ledes</button>
+    <button type="submit" class="btn btn-hot">Join the list</button>
   </form>
 </section>

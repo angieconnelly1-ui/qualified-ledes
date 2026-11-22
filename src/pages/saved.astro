@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import StoryCard from '../components/StoryCard.astro';
+import { getStories } from '../data/stories';
+const stories = await getStories();
+---
+<Base title="Saved ledes" description="Stories you saved on Qualified Ledes. Stored in your browser only." noindex>
+  <header style="display:flex;flex-direction:column;gap:8px">
+    <h1 class="display" style="margin:0;font-size:clamp(40px,6vw,72px);line-height:1">Saved</h1>
+    <p class="subtag">Your saved ledes live in this browser only. Clearing your browser data clears them too.</p>
+  </header>
+  <main id="content">
+    <div class="panel empty" data-saved-empty>
+      <p class="display" style="font-size:28px;margin:0">Nothing saved yet</p>
+      <p>Tap Save on any lede and it will wait for you here. <a href="/">Browse the latest</a>.</p>
+    </div>
+    <div class="grid" data-saved-list>
+      {stories.map((s) => <StoryCard story={s} />)}
+    </div>
+  </main>
+</Base>
+<style is:global>
+  [data-saved-list] .card { display: flex; }
+  [data-saved-list] .card[hidden] { display: none; }
+</style>

@@ -1,0 +1,71 @@
+---
+import { TOPICS, AUDIENCES } from '../data/taxonomy';
+---
+<section class="panel paper-bar" aria-label="Your paper">
+  <div class="paper-stats">
+    <span data-new-wrap hidden><strong data-new-count>0</strong>new since your last visit</span>
+    <span><strong data-done-week>0</strong>done this week</span>
+    <a href="/saved/"><strong data-saved-count>0</strong>saved</a>
+  </div>
+  <button type="button" class="btn btn-ink" data-paper-open><span data-paper-label>Set up my paper</span></button>
+</section>
+
+<dialog class="paper-dialog" data-paper-dialog aria-labelledby="paper-h">
+  <form method="dialog" data-paper-form>
+    <h2 id="paper-h" class="display" style="margin:0 0 6px;font-size:30px">Make it your paper</h2>
+    <p style="margin:0 0 18px;font-size:15px">Pick what you care about and the front page opens to it. Saved in this browser only.</p>
+    <fieldset class="plain">
+      <legend class="label">I mostly read as</legend>
+      <div class="radio-row">
+        <label><input type="radio" name="aud" value="all" checked /> Everyone</label>
+        {AUDIENCES.map((a) => <label><input type="radio" name="aud" value={a.id} /> {a.long}</label>)}
+      </div>
+    </fieldset>
+    <fieldset class="plain">
+      <legend class="label">My topics</legend>
+      <div class="check-grid">
+        {TOPICS.map((t) => <label><input type="checkbox" name="topics" value={t.id} /> {t.label}</label>)}
+      </div>
+    </fieldset>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between">
+      <button type="button" class="btn btn-plain" data-paper-reset>Reset</button>
+      <div style="display:flex;gap:8px">
+        <button type="button" class="btn btn-plain" data-paper-cancel>Cancel</button>
+        <button type="submit" class="btn btn-ink" data-paper-save>Save my paper</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+<script is:inline>
+  (function () {
+    var dlg = document.querySelector('[data-paper-dialog]');
+    var form = document.querySelector('[data-paper-form]');
+    var open = document.querySelector('[data-paper-open]');
+    var label = document.querySelector('[data-paper-label]');
+    if (!dlg || !form || !open) return;
+    function read() { try { return JSON.parse(localStorage.getItem('ql-prefs') || 'null'); } catch (e) { return null; } }
+    function setLabel() { label.textContent = read() ? 'Edit my paper' : 'Set up my paper'; }
+    function fill(p) {
+      form.querySelectorAll('input[name="aud"]').forEach(function (r) { r.checked = r.value === ((p && p.aud) || 'all'); });
+      form.querySelectorAll('input[name="topics"]').forEach(function (c) { c.checked = !!(p && p.topics && p.topics.indexOf(c.value) !== -1); });
+    }
+    setLabel();
+    open.addEventListener('click', function () { fill(read()); dlg.showModal(); });
+    form.querySelector('[data-paper-cancel]').addEventListener('click', function () { dlg.close(); });
+    form.querySelector('[data-paper-reset]').addEventListener('click', function () {
+      try { localStorage.removeItem('ql-prefs'); } catch (e) {}
+      setLabel(); dlg.close();
+      document.dispatchEvent(new CustomEvent('ql:prefs', { detail: { aud: 'all', topics: [] } }));
+    });
+    form.addEventListener('submit', function () {
+      var aud = (form.querySelector('input[name="aud"]:checked') || {}).value || 'all';
+      var topics = Array.prototype.map.call(form.querySelectorAll('input[name="topics"]:checked'), function (c) { return c.value; });
+      var p = { aud: aud, topics: topics };
+      try { localStorage.setItem('ql-prefs', JSON.stringify(p)); } catch (e) {}
+      setLabel();
+      document.dispatchEvent(new CustomEvent('ql:prefs', { detail: p }));
+      if (window.qlTrack) window.qlTrack('set_paper', { audience: aud, topic_count: topics.length });
+    });
+  })();
+</script>
