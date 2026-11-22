@@ -1,6 +1,6 @@
 ---
 title: "Google Ad Grants explained: free Google search ads for nonprofits"
-seoTitle: "Google Ad Grants Explained: Eligibility, Rules and How to Apply"
+seoTitle: "Google Ad Grants: Eligibility, Rules and How to Apply"
 description: "What Google Ad Grants gives nonprofits, who qualifies, the rules that keep an account active, and how to apply, in plain English."
 topic: nonprofit
 audience: main

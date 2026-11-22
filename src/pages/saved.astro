@@ -4,7 +4,7 @@ import StoryCard from '../components/StoryCard.astro';
 import { getStories } from '../data/stories';
 const stories = await getStories();
 ---
-<Base title="Saved ledes" description="Stories you saved on Qualified Ledes. Stored in your browser only." noindex>
+<Base title="Saved ledes" description="The Qualified Ledes stories you saved to read later. Saves are stored in this browser only, never on our servers." noindex>
   <header style="display:flex;flex-direction:column;gap:8px">
     <h1 class="display" style="margin:0;font-size:clamp(40px,6vw,72px);line-height:1">Saved</h1>
     <p class="subtag">Your saved ledes live in this browser only. Clearing your browser data clears them too.</p>
@@ -15,7 +15,7 @@ const stories = await getStories();
       <p>Tap Save on any lede and it will wait for you here. <a href="/">Browse the latest</a>.</p>
     </div>
     <div class="grid" data-saved-list>
-      {stories.map((s) => <StoryCard story={s} />)}
+      {stories.map((s) => <StoryCard story={s} headingLevel="h2" />)}
     </div>
   </main>
 </Base>

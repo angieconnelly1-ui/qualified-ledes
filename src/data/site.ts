@@ -1,6 +1,8 @@
 export const SITE = {
   name: 'Qualified Ledes',
   tagline: 'Pre-qualified marketing news. No nurture sequence required.',
+  // The homepage <title>: what people search for, then the name.
+  homeTitle: 'Qualified Ledes: Marketing News for Small Businesses',
   description:
     'Daily marketing news for small businesses, nonprofits and the marketers who serve them: what changed, why it matters, and what to do about it.',
   url: 'https://qualifiedledes.com',

@@ -1,13 +1,14 @@
 ---
 import type { Guide } from '../data/guides';
 import { topicLabel, topicUrl } from '../data/taxonomy';
-interface Props { guide: Guide; }
-const { guide } = Astro.props;
+interface Props { guide: Guide; headingLevel?: 'h2' | 'h3'; }
+const { guide, headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
 const d = guide.data;
 ---
 <article class="panel card" style="gap:8px">
   <div class="meta"><span class="stamp" style="background:var(--accent);transform:none">Guide</span><a href={topicUrl(d.topic)}>{topicLabel(d.topic)}</a></div>
-  <h3 class="display"><a href={`/guides/${guide.id}/`} style="text-decoration:none">{d.title}</a></h3>
+  <H class="display"><a href={`/guides/${guide.id}/`} style="text-decoration:none">{d.title}</a></H>
   <p>{d.description}</p>
   <a class="source" href={`/guides/${guide.id}/`}>Read the guide</a>
 </article>

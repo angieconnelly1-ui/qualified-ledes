@@ -30,6 +30,8 @@ Each story is one JSON file in `src/content/stories/`, named `YYYY-MM-DD-short-s
 - `featured`: optional; puts the story first on its day
 - `why`: optional but recommended; shown as "Why it matters" on the story page
 - `take`: optional first-person note from Angie, added during review; shown as "Angie's take"
+- `updated`: optional `YYYY-MM-DD`; set it when a published story is corrected so search engines see the new modified date
+- Each story gets a share image at `/og/<slug>.png`, drawn at build time from its headline, heat and topic
 
 ## Guides
 
