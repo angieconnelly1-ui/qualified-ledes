@@ -293,3 +293,60 @@ fieldset.plain legend { margin-bottom: 8px; }
 [data-theme='jazz'] .card:not(.is-lead) .do-this { background: var(--accent); padding: 8px 10px; border: var(--bw) solid var(--line); border-radius: var(--radius); }
 [data-theme='chill'] .filters .chip { background: var(--card); border-color: var(--line); }
 [data-theme='chill'] .filters .chip[aria-pressed='true'] { background: var(--ink); border-color: var(--ink); }
+
+/* Jazz look, round two: pop-art energy where it counts, easier reading everywhere else. */
+[data-theme='jazz'] a { text-decoration-thickness: 2px; text-decoration-color: var(--hot); }
+[data-theme='jazz'] a:hover { opacity: 1; background: var(--accent); }
+[data-theme='jazz'] .topbar nav a:not(.brand) { text-decoration: none; font-weight: 600; padding: 4px 8px; border-radius: 4px; }
+[data-theme='jazz'] .topbar nav a:not(.brand):hover { background: var(--warm); }
+[data-theme='jazz'] .topbar { border-bottom-width: 3px; }
+[data-theme='jazz'] .masthead h1 { letter-spacing: -0.01em; }
+[data-theme='jazz'] .tagline { display: inline-block; align-self: flex-start; background: var(--warm); padding: 2px 10px; transform: rotate(-0.6deg); }
+@media (prefers-reduced-motion: no-preference) {
+  [data-theme='jazz'] .starburst { animation: ql-spin 24s linear infinite; }
+  @keyframes ql-spin { to { transform: rotate(368deg); } }
+}
+
+/* Story headlines in sentence case so they read fast; caps stay on the masthead and section labels */
+[data-theme='jazz'] .card h2, [data-theme='jazz'] .card h3 { text-transform: none; letter-spacing: -0.005em; }
+[data-theme='jazz'] .card { border-top-width: 8px; transition: transform 0.15s, box-shadow 0.15s; }
+[data-theme='jazz'] .card[data-heat='hot'] { border-top-color: #ff6fa6; }
+[data-theme='jazz'] .card[data-heat='warm'] { border-top-color: #ffc93c; }
+[data-theme='jazz'] .card[data-heat='cold'] { border-top-color: #5cc8f0; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-theme='jazz'] .card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+}
+[data-theme='jazz'] .card.is-lead { background: linear-gradient(var(--card), var(--card)) padding-box, var(--card); }
+[data-theme='jazz'] .card.is-lead h2, [data-theme='jazz'] .card.is-lead h3 { text-transform: uppercase; }
+[data-theme='jazz'] .card .meta .topic-link { color: var(--ink); font-weight: 600; }
+
+/* Section bar like a newspaper dateline */
+[data-theme='jazz'] .day-head { background: var(--ink); color: var(--paper); border: none; padding: 8px 14px; font-size: 20px; border-radius: var(--radius); box-shadow: 4px 4px 0 var(--hot); }
+
+/* Lighter chrome: chips and tools drop the heavy boxes */
+[data-theme='jazz'] .filters .chip { border-radius: 999px; background: var(--card); font-weight: 600; }
+[data-theme='jazz'] .filters .chip:hover { background: var(--accent); }
+[data-theme='jazz'] .filters .chip[aria-pressed='true'] { background: var(--hot); color: var(--ink); box-shadow: 2px 2px 0 var(--ink); }
+[data-theme='jazz'] .tool-btn, [data-theme='jazz'] .done-btn { border-radius: 999px; }
+[data-theme='jazz'] .done-btn[aria-pressed='true'] { background: #b8f2c8; color: var(--ink); }
+[data-theme='jazz'] .done-btn[aria-pressed='true'] .done-box { background: var(--ink); border-color: var(--ink); }
+[data-theme='jazz'] .done-btn[aria-pressed='true'] .done-box::after { border-color: #b8f2c8; }
+[data-theme='jazz'] .card:not(.is-lead) .do-this { transform: rotate(-0.4deg); box-shadow: 2px 2px 0 var(--ink); }
+[data-theme='jazz'] .paper-stats strong { font-size: 24px; background: var(--warm); padding: 0 6px; border-radius: 4px; }
+[data-theme='jazz'] .btn-sm { background: var(--card); border-color: var(--line); box-shadow: 2px 2px 0 var(--ink); }
+
+/* Sidebar */
+[data-theme='jazz'] .magnet { position: relative; }
+[data-theme='jazz'] .magnet > .label { align-self: flex-start; background: var(--ink); color: var(--warm); padding: 3px 8px; border-radius: 4px; transform: rotate(-2deg); }
+[data-theme='jazz'] aside nav.panel { background: var(--cold); }
+[data-theme='jazz'] .topic-links a { text-decoration: none; font-weight: 600; }
+[data-theme='jazz'] .topic-links a::before { content: '\2192\00a0'; }
+@media (max-width: 640px) {
+  [data-theme='jazz'] .masthead { position: relative; }
+  [data-theme='jazz'] .starburst { position: absolute; top: -6px; right: -4px; width: 92px; height: 92px; }
+  [data-theme='jazz'] .starburst span { font-size: 11px; padding: 0 14px; }
+  [data-theme='jazz'] .masthead-text { padding-right: 0; }
+  [data-theme='jazz'] .masthead h1 { padding-right: 70px; }
+  [data-theme='jazz'] .card.is-lead h2, [data-theme='jazz'] .card.is-lead h3 { text-transform: none; }
+  [data-theme='jazz'] .tagline { font-size: 18px; }
+}
