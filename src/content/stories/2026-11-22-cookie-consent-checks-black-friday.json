@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-22",
+  "heat": "hot",
+  "topic": "privacy",
+  "audience": "both",
+  "headline": "Four cookie consent checks to run before Black Friday",
+  "dek": "A MeasureU guide (sponsored by Cookiebot) lists the usual holiday breakages: tags that fire after a visitor says no, tags that load before consent, ignored opt-out signals, and new promo pages nobody checked.",
+  "doThis": "Open your site in a private window, reject cookies, and see whether your ad pixels still fire in the browser network tab.",
+  "source": "MeasureU",
+  "url": "https://measureu.com/consent-checks-black-friday/"
+}

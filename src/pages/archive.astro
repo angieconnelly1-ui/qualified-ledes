@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import StoryFeed from '../components/StoryFeed.astro';
+import Sidebar from '../components/Sidebar.astro';
+import { getStories } from '../data/stories';
+const stories = await getStories();
+---
+<Base title="Archive" description="Every Qualified Ledes story, newest first. Filter by reader, topic and how urgent it is.">
+  <header class="masthead-text" style="flex:none">
+    <h1 class="display" style="margin:0;font-size:clamp(40px,6vw,72px);line-height:1">The archive</h1>
+    <p class="subtag">Every lede we have published, newest first.</p>
+  </header>
+  <div class="layout">
+    <main id="content"><StoryFeed stories={stories} leadFirst={false} /></main>
+    <Sidebar />
+  </div>
+</Base>

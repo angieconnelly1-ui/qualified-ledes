@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import SignupForm from '../../components/SignupForm.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '../../data/stories';
+const roundups = (await getCollection('roundups')).sort((a, b) => b.data.number - a.data.number);
+---
+<Base title="Weekly roundups" description="The weekly Qualified Ledes roundup: the stories that mattered most to small businesses and marketers, and what to do about them.">
+  <header>
+    <h1 class="display" style="margin:0;font-size:clamp(40px,6vw,72px);line-height:1">Weekly roundups</h1>
+    <p class="subtag">The week's best ledes, delivered to your inbox. Here is every edition.</p>
+  </header>
+  <div class="layout">
+    <main id="content">
+      {roundups.length === 0 && <p>The first roundup is on its way.</p>}
+      <ul class="list">
+        {roundups.map((r) => (
+          <li class="panel" style="display:flex;flex-direction:column;gap:6px">
+            <span class="label">No. {r.data.number} / {formatDate(r.data.date, { month: 'long', day: 'numeric', year: 'numeric' })}{r.data.draft ? ' / Draft' : ''}</span>
+            <h2 class="display" style="margin:0;font-size:30px"><a href={`/roundups/${r.id}/`}>{r.data.title}</a></h2>
+            <p style="margin:0">{r.data.intro}</p>
+          </li>
+        ))}
+      </ul>
+    </main>
+    <aside><SignupForm /></aside>
+  </div>
+</Base>

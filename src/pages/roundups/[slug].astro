@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import { getCollection } from 'astro:content';
+import { getStories, formatDate } from '../../data/stories';
+
+export async function getStaticPaths() {
+  const roundups = await getCollection('roundups');
+  return roundups.map((r) => ({ params: { slug: r.id }, props: { roundup: r } }));
+}
+const { roundup } = Astro.props;
+const all = await getStories();
+const picks = roundup.data.picks.map((id) => all.find((s) => s.id === id)).filter((s) => !!s);
+---
+<Base title={`No. ${roundup.data.number}: ${roundup.data.title}`} description={roundup.data.intro} noindex={!!roundup.data.draft}>
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <p class="label" style="margin:0"><a href="/roundups/">Weekly roundup</a> / No. {roundup.data.number} / {formatDate(roundup.data.date)}{roundup.data.draft ? ' / Draft' : ''}</p>
+    <h1 class="display" style="margin:0;font-size:clamp(40px,6vw,72px);line-height:1">{roundup.data.title}</h1>
+    <p class="subtag" style="max-width:760px;font-size:19px">{roundup.data.intro}</p>
+  </header>
+  <div class="layout">
+    <main id="content" class="grid">
+      {picks.map((s, i) => <StoryCard story={s} lead={i === 0} headingLevel="h2" />)}
+    </main>
+    <Sidebar />
+  </div>
+</Base>

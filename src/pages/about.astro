@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+import { HEATS } from '../data/taxonomy';
+---
+<Base title="About" description="What Qualified Ledes is, who it is for, and how stories are picked and written.">
+  <main id="content" class="prose">
+    <h1 class="display">About {SITE.name}</h1>
+    <p>{SITE.name} is a daily marketing news page for small businesses, nonprofits and the marketers who serve them. Every story answers three questions: what changed, why it matters, and what to do about it.</p>
+    <h2 class="display">Two kinds of readers</h2>
+    <p><strong>Main Street</strong> stories are for business owners and nonprofit teams who do their own marketing. <strong>Trade Desk</strong> stories are for marketers, freelancers and agencies who do it for others. Some stories are for both. Use the Reader filter to see only yours.</p>
+    <h2 class="display">How hot is it?</h2>
+    <ul>
+      {HEATS.map((h) => <li><strong>{h.label}:</strong> {h.meaning}</li>)}
+    </ul>
+    <h2 class="display">How stories are picked</h2>
+    <p>New stories are added every weekday, once or twice a day, from trade press, platform announcements, research and local business news. Summaries are written in our own words, and every story links to its original source so you can read the full piece. Research is done with help from AI tools, and every story is reviewed by a person before it is published.</p>
+    <p>Each week, the best stories go out as the weekly roundup. <a href="/subscribe/">Subscribe free</a>.</p>
+    <h2 class="display">Who is behind it</h2>
+    <p>{SITE.name} is curated by <a href={SITE.authorUrl}>{SITE.author}</a>, a marketing and revenue operations consultant in Richmond, Virginia.</p>
+  </main>
+</Base>

@@ -1,0 +1,14 @@
+# Qualified Ledes
+
+> Daily marketing news for small businesses, nonprofits and the marketers who serve them. Each story covers what changed, why it matters, and one concrete action, with a link to the original source. Curated by Angie Connelly in Richmond, Virginia.
+
+## Main pages
+- [Latest stories](https://qualifiedledes.com/): the last two weeks of ledes, filterable by reader, topic and urgency
+- [Archive](https://qualifiedledes.com/archive/): every story, newest first
+- [Weekly roundups](https://qualifiedledes.com/roundups/): the week's best stories
+- [Topics](https://qualifiedledes.com/topics/): AI search and SEO, local SEO and Google Business Profile, ads and social, websites and tools, nonprofits, B2B and MSP, privacy and consent, Richmond and Virginia, pricing and offers
+- [About](https://qualifiedledes.com/about/): how stories are picked and written
+
+## Feeds
+- [Weekly roundup RSS](https://qualifiedledes.com/rss.xml)
+- [Daily stories RSS](https://qualifiedledes.com/stories.xml)

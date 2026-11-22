@@ -1,0 +1,95 @@
+---
+import '../styles/global.css';
+import { SITE } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+const { title, description = SITE.description, noindex = false } = Astro.props;
+const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name}: ${SITE.tagline}`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: SITE.url,
+  description: SITE.description,
+  publisher: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
+};
+---
+<!doctype html>
+<html lang="en" data-theme="chill">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="Qualified Ledes weekly roundup" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Qualified Ledes daily stories" href="/stories.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" />
+    <script is:inline>
+      try {
+        var t = localStorage.getItem('ql-theme');
+        if (t === 'jazz' || t === 'chill') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to the news</a>
+    <div class="wrap">
+      <div class="topbar">
+        <nav aria-label="Site">
+          <a class="brand" href="/">{SITE.name}</a>
+          <a href="/">Latest</a>
+          <a href="/roundups/">Weekly roundups</a>
+          <a href="/topics/">Topics</a>
+          <a href="/archive/">Archive</a>
+          <a href="/about/">About</a>
+        </nav>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <a class="btn btn-hot" href="/subscribe/">Subscribe free</a>
+          <button type="button" class="btn btn-ink" id="theme-toggle">Jazz up my screen</button>
+        </div>
+      </div>
+
+      <slot />
+
+      <footer class="site-footer">
+        <span>Curated by {SITE.author} in Richmond, VA. <a href={SITE.authorUrl}>angieconnelly.com</a></span>
+        <span>Summaries in our own words. Every story links to its source. <a href="/rss.xml">RSS</a></span>
+      </footer>
+    </div>
+
+    <script is:inline>
+      (function () {
+        var btn = document.getElementById('theme-toggle');
+        if (!btn) return;
+        function label() {
+          btn.textContent = document.documentElement.dataset.theme === 'jazz' ? 'Chill out, my screen' : 'Jazz up my screen';
+        }
+        label();
+        btn.addEventListener('click', function () {
+          var next = document.documentElement.dataset.theme === 'jazz' ? 'chill' : 'jazz';
+          document.documentElement.dataset.theme = next;
+          try { localStorage.setItem('ql-theme', next); } catch (e) {}
+          label();
+        });
+      })();
+    </script>
+  </body>
+</html>

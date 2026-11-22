@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import { TOPICS } from '../../data/taxonomy';
+import { getStories } from '../../data/stories';
+const stories = await getStories();
+const count = (id: string) => stories.filter((s) => s.data.topic === id).length;
+---
+<Base title="Topics" description="Browse Qualified Ledes by topic: AI search, local SEO, ads, websites, nonprofits, B2B, privacy, Richmond and more.">
+  <header>
+    <h1 class="display" style="margin:0;font-size:clamp(40px,6vw,72px);line-height:1">Topics</h1>
+  </header>
+  <main id="content" class="grid">
+    {TOPICS.map((t) => (
+      <a class="panel" href={`/topics/${t.id}/`} style="text-decoration:none;display:flex;flex-direction:column;gap:8px">
+        <h2 class="display" style="margin:0;font-size:28px">{t.label}</h2>
+        <p style="margin:0">{t.blurb}</p>
+        <span class="label">{count(t.id)} {count(t.id) === 1 ? 'lede' : 'ledes'}</span>
+      </a>
+    ))}
+  </main>
+</Base>

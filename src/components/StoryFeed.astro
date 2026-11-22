@@ -1,0 +1,93 @@
+---
+import StoryCard from './StoryCard.astro';
+import { groupByDate, formatDate, type Story } from '../data/stories';
+import { TOPICS, AUDIENCES, HEATS } from '../data/taxonomy';
+
+interface Props { stories: Story[]; showTopicFilter?: boolean; leadFirst?: boolean; }
+const { stories, showTopicFilter = true, leadFirst = true } = Astro.props;
+const groups = groupByDate(stories);
+---
+<div class="panel filters" data-feed-filters>
+  <div class="filter-row" role="group" aria-label="Filter by reader">
+    <span class="label">Reader</span>
+    <button type="button" class="chip" data-group="aud" data-value="all" aria-pressed="true">Everyone</button>
+    {AUDIENCES.map((a) => <button type="button" class="chip" data-group="aud" data-value={a.id} aria-pressed="false">{a.long}</button>)}
+  </div>
+  {showTopicFilter && (
+    <div class="filter-row" role="group" aria-label="Filter by topic">
+      <span class="label">Topic</span>
+      <button type="button" class="chip" data-group="topic" data-value="all" aria-pressed="true">All topics</button>
+      {TOPICS.map((t) => <button type="button" class="chip" data-group="topic" data-value={t.id} aria-pressed="false">{t.label}</button>)}
+    </div>
+  )}
+  <div class="filter-row" role="group" aria-label="Filter by heat">
+    <span class="label">Heat</span>
+    <button type="button" class="chip" data-group="heat" data-value="all" aria-pressed="true">All</button>
+    {HEATS.map((h) => <button type="button" class="chip" data-group="heat" data-value={h.id} aria-pressed="false">{h.label}</button>)}
+  </div>
+  <div class="filter-status">
+    <span aria-live="polite" data-feed-count>Showing {stories.length} of {stories.length} ledes</span>
+    <button type="button" class="btn btn-plain" data-feed-reset hidden>Clear filters</button>
+  </div>
+</div>
+
+<div data-feed>
+  {groups.length === 0 && <div class="panel empty"><p class="display" style="font-size:28px;margin:0">No ledes here yet</p><p>New stories land once or twice a day. Check back soon.</p></div>}
+  {groups.map((g, gi) => (
+    <section class="day" data-day aria-labelledby={`day-${g.date}`} style="margin-bottom:28px">
+      <h2 class="day-head display" id={`day-${g.date}`}>{formatDate(g.date)}</h2>
+      <div class="grid">
+        {g.stories.map((s, si) => <StoryCard story={s} lead={leadFirst && gi === 0 && si === 0} />)}
+      </div>
+    </section>
+  ))}
+  <div class="panel empty" data-feed-empty hidden>
+    <p class="display" style="font-size:28px;margin:0">No ledes on this beat yet</p>
+    <p>Try another filter, or clear them all.</p>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var root = document.querySelector('[data-feed-filters]');
+    if (!root) return;
+    var feed = document.querySelector('[data-feed]');
+    var total = feed.querySelectorAll('.card').length;
+    var state = { aud: 'all', topic: 'all', heat: 'all' };
+    var params = new URLSearchParams(location.search);
+    ['aud', 'topic', 'heat'].forEach(function (k) { if (params.get(k)) state[k] = params.get(k); });
+
+    function apply() {
+      root.querySelectorAll('.chip').forEach(function (c) {
+        c.setAttribute('aria-pressed', String(state[c.dataset.group] === c.dataset.value));
+      });
+      var shown = 0;
+      feed.querySelectorAll('.card').forEach(function (card) {
+        var ok = (state.topic === 'all' || card.dataset.topic === state.topic) &&
+          (state.heat === 'all' || card.dataset.heat === state.heat) &&
+          (state.aud === 'all' || card.dataset.aud === state.aud || card.dataset.aud === 'both');
+        card.hidden = !ok;
+        if (ok) shown++;
+      });
+      feed.querySelectorAll('[data-day]').forEach(function (day) {
+        day.hidden = !day.querySelector('.card:not([hidden])');
+      });
+      var filtered = state.aud !== 'all' || state.topic !== 'all' || state.heat !== 'all';
+      root.querySelector('[data-feed-count]').textContent = 'Showing ' + shown + ' of ' + total + ' ledes';
+      root.querySelector('[data-feed-reset]').hidden = !filtered;
+      var empty = feed.querySelector('[data-feed-empty]');
+      if (empty) empty.hidden = shown > 0 || total === 0;
+      var q = new URLSearchParams();
+      Object.keys(state).forEach(function (k) { if (state[k] !== 'all') q.set(k, state[k]); });
+      var qs = q.toString();
+      history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    }
+
+    root.addEventListener('click', function (e) {
+      var chip = e.target.closest('.chip');
+      if (chip) { state[chip.dataset.group] = chip.dataset.value; apply(); }
+      if (e.target.closest('[data-feed-reset]')) { state = { aud: 'all', topic: 'all', heat: 'all' }; apply(); }
+    });
+    apply();
+  })();
+</script>
