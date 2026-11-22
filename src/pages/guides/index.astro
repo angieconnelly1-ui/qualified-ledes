@@ -12,7 +12,7 @@ const guides = await getGuides();
   </header>
   <div class="layout">
     <main id="content" class="grid">
-      {guides.map((g) => <GuideCard guide={g} />)}
+      {guides.map((g) => <GuideCard guide={g} headingLevel="h2" />)}
     </main>
     <aside><SignupForm /></aside>
   </div>

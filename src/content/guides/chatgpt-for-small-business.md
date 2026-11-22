@@ -1,6 +1,6 @@
 ---
 title: "ChatGPT for small business: the new business profiles and practical uses"
-seoTitle: "ChatGPT for Small Business: Business Profiles, Uses and What to Do Now"
+seoTitle: "ChatGPT for Small Business: Profiles, Uses and Next Steps"
 description: "What OpenAI's new Businesses in ChatGPT profiles are, whether to claim yours, what early numbers show, and practical everyday uses for a small team."
 topic: ai
 audience: main

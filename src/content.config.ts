@@ -20,6 +20,8 @@ const stories = defineCollection({
     featured: z.boolean().optional(),
     // Optional first-person note from Angie, added during review.
     take: z.string().optional(),
+    // Set to the correction date (YYYY-MM-DD) when a published story is corrected; becomes dateModified.
+    updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
   }),
 });
 

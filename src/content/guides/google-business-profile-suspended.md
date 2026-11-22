@@ -1,6 +1,6 @@
 ---
 title: "Google Business Profile suspended? What to do next"
-seoTitle: "Google Business Profile Suspended: How to Appeal and Get Reinstated"
+seoTitle: "Google Business Profile Suspended: How to Get Reinstated"
 description: "Why Google suspends Business Profiles, what to fix first, and how to use the appeals tool without making things worse."
 topic: local
 audience: main

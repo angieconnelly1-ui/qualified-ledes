@@ -1,6 +1,7 @@
 ---
 import '@fontsource/dm-serif-display/latin-400.css';
 import '../styles/global.css';
+import headlineFont from '@fontsource/dm-serif-display/files/dm-serif-display-latin-400-normal.woff2?url';
 import { SITE } from '../data/site';
 
 interface Props {
@@ -10,10 +11,22 @@ interface Props {
   type?: 'website' | 'article';
   published?: string;
   jsonLd?: Record<string, unknown>[];
+  image?: string;
 }
-const { title, description = SITE.description, noindex = false, type = 'website', published, jsonLd = [] } = Astro.props;
-const image = new URL(SITE.ogImage, Astro.site).href;
-const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name}: ${SITE.tagline}`;
+const { title, description: rawDescription = SITE.description, noindex = false, type = 'website', published, jsonLd = [], image: imagePath } = Astro.props;
+const image = new URL(imagePath ?? SITE.ogImage, Astro.site).href;
+// Titles: keep the site name when it fits in about 60 characters; Google shows the site name on its own line anyway.
+const withSite = title ? `${title} | ${SITE.name}` : '';
+const fullTitle = !title ? SITE.homeTitle : withSite.length <= 60 ? withSite : title;
+// Descriptions: Google cuts at about 160 characters, so end on the last full sentence under 155.
+function trimDescription(text: string, max = 155): string {
+  if (text.length <= 160) return text;
+  const cut = text.slice(0, max + 1);
+  const end = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('? '), cut.endsWith('.') ? cut.length - 1 : -1);
+  if (end >= 80) return text.slice(0, end + 1);
+  return cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:]$/, '') + '…';
+}
+const description = trimDescription(rawDescription);
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const orgId = `${SITE.url}/#organization`;
 const personId = `${SITE.url}/#angie`;
@@ -72,6 +85,8 @@ const ld = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={image} />
+    <link rel="preload" href={headlineFont} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title="Qualified Ledes weekly roundup" href="/rss.xml" />
     <link rel="alternate" type="application/rss+xml" title="Qualified Ledes daily stories" href="/stories.xml" />
@@ -102,7 +117,18 @@ const ld = {
           gtag('js', new Date());
           gtag('config', gaId);
         </script>
-        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.gaId}`}></script>
+        <script is:inline define:vars={{ gaId: SITE.gaId }}>
+          // Load the Analytics library once the page has finished loading, so it never slows the first view.
+          window.addEventListener('load', function () {
+            var go = function () {
+              var s = document.createElement('script');
+              s.async = true;
+              s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+              document.head.appendChild(s);
+            };
+            if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 3000 }); else setTimeout(go, 1500);
+          });
+        </script>
       </>
     )}
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
@@ -130,7 +156,7 @@ const ld = {
 
       <footer class="site-footer">
         <span>Curated by {SITE.author} in Richmond, VA. <a href={SITE.authorUrl}>angieconnelly.com</a></span>
-        <span><a href="/archive/">Archive</a> · <a href="/saved/">Saved</a> · <a href="/about/">About</a> · <a href="/editorial-policy/">Editorial policy</a> · <a href="/privacy/">Privacy</a> · <a href="/contact/">Contact</a> · <a href="/rss.xml">RSS</a></span>
+        <span><a href="/for/small-business/">For small businesses</a> · <a href="/for/marketers/">For marketers</a> · <a href="/archive/">Archive</a> · <a href="/saved/">Saved</a> · <a href="/about/">About</a> · <a href="/editorial-policy/">Editorial policy</a> · <a href="/privacy/">Privacy</a> · <a href="/contact/">Contact</a> · <a href="/rss.xml">RSS</a></span>
       </footer>
     </div>
 
@@ -158,6 +184,6 @@ const ld = {
         <button type="button" class="btn btn-ink" data-consent-choice="granted">That's fine</button>
       </div>
     </div>
-    <script is:inline src="/reader.js"></script>
+    <script is:inline defer src="/reader.js"></script>
   </body>
 </html>

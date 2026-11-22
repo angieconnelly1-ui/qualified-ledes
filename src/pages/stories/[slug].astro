@@ -19,6 +19,8 @@ const guide = (await getGuides()).find((g) => g.data.topic === d.topic);
 const url = new URL(`/stories/${story.id}/`, Astro.site).href;
 const topic = TOPICS.find((t) => t.id === d.topic)!;
 const published = `${d.date}T07:00:00-05:00`;
+const modified = d.updated ? `${d.updated}T12:00:00-05:00` : published;
+const shareImage = `/og/${story.id}.png`;
 
 const article = {
   '@context': 'https://schema.org',
@@ -26,10 +28,10 @@ const article = {
   headline: d.headline,
   description: d.dek,
   datePublished: published,
-  dateModified: published,
+  dateModified: modified,
   url,
   mainEntityOfPage: url,
-  image: new URL(SITE.ogImage, Astro.site).href,
+  image: { '@type': 'ImageObject', url: new URL(shareImage, Astro.site).href, width: 1200, height: 630 },
   articleSection: topic.label,
   author: { '@id': `${SITE.url}/#angie` },
   publisher: { '@id': `${SITE.url}/#organization` },
@@ -47,7 +49,7 @@ const crumbs = {
   ],
 };
 ---
-<Base title={d.headline} description={d.dek} type="article" published={published} jsonLd={[article, crumbs]}>
+<Base title={d.headline} description={d.dek} type="article" published={published} image={shareImage} jsonLd={[article, crumbs]}>
   <div class="layout">
     <main id="content">
       <article class="panel" data-pagefind-body data-read-type="story" style="padding:32px;display:flex;flex-direction:column;gap:16px">
