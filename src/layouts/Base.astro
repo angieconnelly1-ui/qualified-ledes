@@ -6,17 +6,50 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  type?: 'website' | 'article';
+  published?: string;
+  jsonLd?: Record<string, unknown>[];
 }
-const { title, description = SITE.description, noindex = false } = Astro.props;
+const { title, description = SITE.description, noindex = false, type = 'website', published, jsonLd = [] } = Astro.props;
+const image = new URL(SITE.ogImage, Astro.site).href;
 const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name}: ${SITE.tagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const orgId = `${SITE.url}/#organization`;
+const personId = `${SITE.url}/#angie`;
 const ld = {
   '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: SITE.name,
-  url: SITE.url,
-  description: SITE.description,
-  publisher: { '@type': 'Person', name: SITE.author, url: SITE.authorUrl },
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE.url}/#website`,
+      name: SITE.name,
+      url: SITE.url,
+      description: SITE.description,
+      publisher: { '@id': orgId },
+      inLanguage: 'en-US',
+    },
+    {
+      '@type': 'NewsMediaOrganization',
+      '@id': orgId,
+      name: SITE.name,
+      url: SITE.url,
+      logo: { '@type': 'ImageObject', url: `${SITE.url}/favicon.svg` },
+      founder: { '@id': personId },
+      publishingPrinciples: `${SITE.url}/editorial-policy/`,
+      correctionsPolicy: `${SITE.url}/editorial-policy/#corrections`,
+      ethicsPolicy: `${SITE.url}/editorial-policy/`,
+    },
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: SITE.author,
+      url: `${SITE.url}/about/#angie`,
+      jobTitle: 'Editor',
+      description: SITE.authorBio,
+      sameAs: [SITE.authorUrl, SITE.authorLinkedIn],
+      address: { '@type': 'PostalAddress', addressLocality: 'Richmond', addressRegion: 'VA', addressCountry: 'US' },
+    },
+  ],
 };
 ---
 <!doctype html>
@@ -28,12 +61,16 @@ const ld = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    {published && <meta property="article:published_time" content={published} />}
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title="Qualified Ledes weekly roundup" href="/rss.xml" />
     <link rel="alternate" type="application/rss+xml" title="Qualified Ledes daily stories" href="/stories.xml" />
@@ -48,6 +85,7 @@ const ld = {
       } catch (e) {}
     </script>
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
   </head>
   <body>
     <a class="skip" href="#content">Skip to the news</a>
@@ -71,7 +109,7 @@ const ld = {
 
       <footer class="site-footer">
         <span>Curated by {SITE.author} in Richmond, VA. <a href={SITE.authorUrl}>angieconnelly.com</a></span>
-        <span>Summaries in our own words. Every story links to its source. <a href="/rss.xml">RSS</a></span>
+        <span><a href="/editorial-policy/">Editorial policy</a> · <a href="/contact/">Contact</a> · <a href="/rss.xml">RSS</a></span>
       </footer>
     </div>
 

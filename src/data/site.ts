@@ -6,6 +6,11 @@ export const SITE = {
   url: 'https://qualifiedledes.com',
   author: 'Angie Connelly',
   authorUrl: 'https://angieconnelly.com',
+  authorLinkedIn: 'https://www.linkedin.com/in/angie-connelly/',
+  authorBio:
+    'Angie Connelly is a demand generation and revenue operations leader with more than 11 years in B2B marketing, and an independent consultant to small businesses, nonprofits and MSPs in Richmond, Virginia.',
+  helpUrl: 'https://angieconnelly.com/free-visibility-check',
+  ogImage: '/og-default.png',
 };
 
 // The free resource of the week. Swap it out with each roundup.

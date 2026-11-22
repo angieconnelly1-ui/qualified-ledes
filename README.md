@@ -16,6 +16,7 @@ Each story is one JSON file in `src/content/stories/`, named `YYYY-MM-DD-short-s
   "audience": "both",
   "headline": "Short headline in our own words",
   "dek": "Two or three sentences on what happened.",
+  "why": "One or two sentences on why it matters to readers.",
   "doThis": "One concrete step for the reader.",
   "source": "Outlet name",
   "url": "https://link-to-the-original",
@@ -27,6 +28,8 @@ Each story is one JSON file in `src/content/stories/`, named `YYYY-MM-DD-short-s
 - `topic`: `ai`, `local`, `ads`, `web`, `nonprofit`, `b2b`, `privacy`, `rva`, `offers` (labels in `src/data/taxonomy.ts`)
 - `audience`: `main` (owners and nonprofits), `trade` (marketers), `both`
 - `featured`: optional; puts the story first on its day
+- `why`: optional but recommended; shown as "Why it matters" on the story page
+- `take`: optional first-person note from Angie, added during review; shown as "Angie's take"
 
 ## Weekly roundup
 

@@ -5,5 +5,5 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://qualifiedledes.com',
   trailingSlash: 'always',
-  integrations: [sitemap({ filter: (page) => !page.includes('/subscribe/thanks/') })],
+  integrations: [sitemap({ filter: (page) => !page.includes('/thanks/') })],
 });

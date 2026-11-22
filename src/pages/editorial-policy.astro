@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+<Base title="Editorial policy" description="How Qualified Ledes picks, writes, reviews and corrects stories, and how AI tools are used.">
+  <main id="content" class="prose">
+    <h1 class="display">Editorial policy</h1>
+    <p>{SITE.name} exists to help small businesses, nonprofits and marketers keep up with changes that affect them, and to say plainly what to do about each one.</p>
+
+    <h2 class="display">What we cover</h2>
+    <p>Search and AI visibility, local search and Google Business Profile, ads and social platforms, websites and tools, nonprofit marketing, B2B and MSP marketing, privacy and consent, Richmond and Virginia business news, and how freelancers and agencies package their services. We do not cover cybersecurity.</p>
+
+    <h2 class="display">How stories are picked</h2>
+    <p>Every weekday we review trade press, official platform announcements, research reports and local business news. A story makes the cut when it changes what a small business, nonprofit or marketer should do, or helps them decide. Each story is rated Hot (act this week), Warm (worth a test) or Cold (good to know).</p>
+
+    <h2 class="display">How stories are written</h2>
+    <p>Summaries are written in our own words and kept short. Every story names and links its original source, and we note when a source is sponsored. Quotes are rare and brief. If you want the full story, read the original.</p>
+
+    <h2 class="display">How we use AI</h2>
+    <p>We use AI tools to help find stories, check facts against sources and draft summaries. A person reviews every story before it is published and every weekly roundup before it is sent. Nothing is published automatically.</p>
+
+    <h2 class="display">Independence</h2>
+    <p>Stories are chosen for readers, never for advertisers. If we ever run sponsorships or affiliate links, they will be clearly labeled and will not decide what we cover. {SITE.name} is curated by <a href="/about/#angie">{SITE.author}</a>, who also runs a marketing consulting practice; stories link to that practice only as an optional offer of help.</p>
+
+    <h2 class="display" id="corrections">Corrections</h2>
+    <p>If we get something wrong, we fix it and note the correction on the story. Spot a mistake? <a href="/contact/">Tell us</a>.</p>
+  </main>
+</Base>

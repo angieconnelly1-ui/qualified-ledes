@@ -14,7 +14,7 @@ export async function GET(context) {
       title: s.data.headline,
       pubDate: new Date(`${s.data.date}T12:00:00Z`),
       description: `${s.data.dek} Do this: ${s.data.doThis}`,
-      link: `/archive/#${s.id}`,
+      link: `/stories/${s.id}/`,
       categories: [topicLabel(s.data.topic)],
     })),
   });

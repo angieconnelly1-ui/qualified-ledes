@@ -1,5 +1,6 @@
 ---
 import StoryCard from './StoryCard.astro';
+import InlineSignup from './InlineSignup.astro';
 import { groupByDate, formatDate, type Story } from '../data/stories';
 import { TOPICS, AUDIENCES, HEATS } from '../data/taxonomy';
 
@@ -37,7 +38,12 @@ const groups = groupByDate(stories);
     <section class="day" data-day aria-labelledby={`day-${g.date}`} style="margin-bottom:28px">
       <h2 class="day-head display" id={`day-${g.date}`}>{formatDate(g.date)}</h2>
       <div class="grid">
-        {g.stories.map((s, si) => <StoryCard story={s} lead={leadFirst && gi === 0 && si === 0} />)}
+        {g.stories.map((s, si) => (
+          <>
+            <StoryCard story={s} lead={leadFirst && gi === 0 && si === 0} />
+            {gi === 0 && si === 2 && <InlineSignup />}
+          </>
+        ))}
       </div>
     </section>
   ))}
