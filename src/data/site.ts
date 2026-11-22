@@ -12,7 +12,7 @@ export const SITE = {
   helpUrl: 'https://angieconnelly.com/free-visibility-check',
   ogImage: '/og-default.png',
   // GA4 Measurement ID (G-XXXXXXX). Leave empty to load no analytics.
-  gaId: '',
+  gaId: 'G-EVFKT2CZCT',
 };
 
 // The free resource of the week. Swap it out with each roundup.
