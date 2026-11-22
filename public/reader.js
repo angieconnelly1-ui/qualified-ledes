@@ -56,6 +56,7 @@
       if (l) l.textContent = on ? 'Saved' : 'Save';
     });
     document.querySelectorAll('[data-saved-count]').forEach(function (el) { el.textContent = String(saved.length); });
+    document.querySelectorAll('[data-saved-wrap]').forEach(function (el) { el.hidden = saved.length === 0; });
     var list = document.querySelector('[data-saved-list]');
     if (list) {
       var shown = 0;
@@ -83,6 +84,7 @@
     var since = weekStart();
     var week = Object.keys(done).filter(function (k) { return new Date(done[k]).getTime() >= since; }).length;
     document.querySelectorAll('[data-done-week]').forEach(function (el) { el.textContent = String(week); });
+    document.querySelectorAll('[data-done-wrap]').forEach(function (el) { el.hidden = week === 0; });
   }
 
   // ----- New since last visit -----
@@ -104,7 +106,7 @@
     }
     var count = Object.keys(fresh).length;
     document.querySelectorAll('[data-new-count]').forEach(function (el) { el.textContent = String(count); });
-    document.querySelectorAll('[data-new-wrap]').forEach(function (el) { el.hidden = firstVisit; });
+    document.querySelectorAll('[data-new-wrap]').forEach(function (el) { el.hidden = firstVisit || count === 0; });
     var saveSeen = function () {
       var merged = seen.concat(ids.filter(function (id) { return seen.indexOf(id) === -1; }));
       store.set('ql-seen', merged.slice(-1000));

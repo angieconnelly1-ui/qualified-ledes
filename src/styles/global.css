@@ -225,11 +225,6 @@ fieldset.plain legend { margin-bottom: 8px; }
 .consent { position: fixed; left: 16px; right: 16px; bottom: 16px; max-width: 720px; margin: 0 auto; z-index: 60; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
 .consent p { margin: 0; font-size: 15px; flex: 1 1 320px; }
 
-@media (max-width: 640px) {
-  .topbar nav { flex-wrap: nowrap; overflow-x: auto; width: 100%; padding-bottom: 4px; scrollbar-width: none; }
-  .topbar nav::-webkit-scrollbar { display: none; }
-  .topbar nav a { flex: 0 0 auto; }
-}
 
 /* Chill look: modern editorial finish. Hairline borders, white cards, one accent color. */
 [data-theme='chill'] a { text-decoration-color: var(--line-strong); text-decoration-thickness: 1px; }
@@ -317,11 +312,10 @@ fieldset.plain legend { margin-bottom: 8px; }
   [data-theme='jazz'] .card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
 }
 [data-theme='jazz'] .card.is-lead { background: linear-gradient(var(--card), var(--card)) padding-box, var(--card); }
-[data-theme='jazz'] .card.is-lead h2, [data-theme='jazz'] .card.is-lead h3 { text-transform: uppercase; }
 [data-theme='jazz'] .card .meta .topic-link { color: var(--ink); font-weight: 600; }
 
 /* Section bar like a newspaper dateline */
-[data-theme='jazz'] .day-head { background: var(--ink); color: var(--paper); border: none; padding: 8px 14px; font-size: 20px; border-radius: var(--radius); box-shadow: 4px 4px 0 var(--hot); }
+[data-theme='jazz'] .day-head { color: var(--ink); border: none; border-bottom: 3px solid var(--ink); padding: 0 0 6px; font-size: 20px; box-shadow: 0 3px 0 var(--hot); }
 
 /* Lighter chrome: chips and tools drop the heavy boxes */
 [data-theme='jazz'] .filters .chip { border-radius: 999px; background: var(--card); font-weight: 600; }
@@ -347,7 +341,6 @@ fieldset.plain legend { margin-bottom: 8px; }
   [data-theme='jazz'] .starburst span { font-size: 11px; padding: 0 14px; }
   [data-theme='jazz'] .masthead-text { padding-right: 0; }
   [data-theme='jazz'] .masthead h1 { padding-right: 70px; }
-  [data-theme='jazz'] .card.is-lead h2, [data-theme='jazz'] .card.is-lead h3 { text-transform: none; }
   [data-theme='jazz'] .tagline { font-size: 18px; }
 }
 
@@ -362,4 +355,29 @@ fieldset.plain legend { margin-bottom: 8px; }
   .filters.is-open .more-filters-body .filter-row { flex-wrap: wrap; overflow: visible; }
   .filters.is-open { background: var(--card); border: var(--bw) solid var(--line); border-radius: var(--radius); padding: 14px; }
   .filters.is-filtered .filter-toggle { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+}
+
+/* Home screen tune-up, Nov 2026 */
+.feed-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 12px; }
+.feed-tools .paper-bar { flex: 1 1 auto; }
+.feed-tools:not(:has(.paper-bar)) { justify-content: flex-start; }
+.filters:not(.is-filtered) .filter-status { display: none; }
+.topic-row, .more-filters-body .filter-row { flex-wrap: wrap; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+@media (max-width: 640px) {
+  .nav-latest { display: none; }
+  .topbar { gap: 10px; padding-bottom: 10px; }
+  .topbar nav { width: 100%; flex-wrap: wrap; gap: 8px 18px; }
+  .topbar nav .brand { flex: 1 0 100%; }
+  .topbar > div .btn { min-height: 40px; padding: 8px 14px; font-size: 14px; }
+  .masthead h1, [data-theme='chill'] .masthead h1 { font-size: 40px; }
+  [data-theme='jazz'] .masthead h1 { font-size: 44px; padding-right: 0; }
+  .masthead-text { gap: 8px; }
+  .tagline, [data-theme='chill'] .tagline, [data-theme='jazz'] .tagline { font-size: 16px; }
+  .subtag { font-size: 14px; }
+  .layout main { gap: 20px; }
+  .feed-tools { justify-content: flex-start; }
+  .feed-tools .paper-bar { display: contents; }
+  .feed-tools .paper-stats { flex: 1 0 100%; }
+  .feed-tools .paper-stats:not(:has(> :not([hidden]))) { display: none; }
+  .paper-bar { gap: 8px; }
 }
