@@ -167,3 +167,9 @@ footer.site-footer { display: flex; flex-wrap: wrap; justify-content: space-betw
   .panel { padding: 16px; }
   .card.is-lead { padding: 20px; }
 }
+
+/* Guide body */
+.guide h2 { font-family: var(--display); font-weight: 400; font-size: 30px; margin: 28px 0 6px; text-transform: var(--case); }
+.guide h3 { font-size: 20px; margin: 20px 0 4px; }
+.guide p, .guide li { font-size: 18px; line-height: 1.65; }
+.guide ul, .guide ol { padding-left: 22px; }

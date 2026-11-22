@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import SignupForm from '../../components/SignupForm.astro';
+import { getGuides } from '../../data/guides';
+const guides = await getGuides();
+---
+<Base title="Marketing guides for small businesses and nonprofits" description="Plain-English guides to AI search, Google Business Profile, Google Ad Grants and more, with sources and clear next steps.">
+  <header>
+    <h1 class="display" style="margin:0;font-size:clamp(40px,6vw,72px);line-height:1">Guides</h1>
+    <p class="subtag">One question, answered well. Each guide is sourced, dated and kept up to date.</p>
+  </header>
+  <div class="layout">
+    <main id="content" class="grid">
+      {guides.map((g) => <GuideCard guide={g} />)}
+    </main>
+    <aside><SignupForm /></aside>
+  </div>
+</Base>

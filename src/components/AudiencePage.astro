@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import StoryFeed from './StoryFeed.astro';
+import GuideCard from './GuideCard.astro';
+import SignupForm from './SignupForm.astro';
+import { getStories } from '../data/stories';
+import { getGuides } from '../data/guides';
+import { TOPICS } from '../data/taxonomy';
+
+interface Props { aud: 'main' | 'trade'; title: string; h1: string; intro: string; description: string; hubs: string[]; }
+const { aud, title, h1, intro, description, hubs } = Astro.props;
+const stories = (await getStories()).filter((s) => s.data.audience === aud || s.data.audience === 'both').slice(0, 24);
+const guides = (await getGuides()).filter((g) => g.data.audience === aud || g.data.audience === 'both');
+const hubList = TOPICS.filter((t) => hubs.includes(t.id));
+---
+<Base title={title} description={description}>
+  <header style="display:flex;flex-direction:column;gap:10px;max-width:820px">
+    <h1 class="display" style="margin:0;font-size:clamp(38px,5.5vw,64px);line-height:1.05">{h1}</h1>
+    <p class="subtag" style="font-size:19px">{intro}</p>
+  </header>
+  <div class="layout">
+    <main id="content">
+      <nav aria-labelledby="hubs-h" class="panel" style="display:flex;flex-direction:column;gap:10px">
+        <h2 id="hubs-h" class="display" style="margin:0;font-size:24px">Your topics</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          {hubList.map((t) => <a class="chip" style="display:inline-flex;align-items:center;text-decoration:none" href={`/topics/${t.slug}/`}>{t.label}</a>)}
+        </div>
+      </nav>
+      {guides.length > 0 && (
+        <section aria-labelledby="g-h" style="display:flex;flex-direction:column;gap:16px">
+          <h2 id="g-h" class="day-head display">Guides for you</h2>
+          <div class="grid">{guides.map((g) => <GuideCard guide={g} />)}</div>
+        </section>
+      )}
+      <h2 class="day-head display">Latest ledes for you</h2>
+      <StoryFeed stories={stories} leadFirst={false} />
+    </main>
+    <aside><SignupForm id="aud-signup" heading="Get the weekly roundup" /></aside>
+  </div>
+</Base>

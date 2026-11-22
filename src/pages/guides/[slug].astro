@@ -1,0 +1,98 @@
+---
+import Base from '../../layouts/Base.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import SignupForm from '../../components/SignupForm.astro';
+import { render } from 'astro:content';
+import { getGuides } from '../../data/guides';
+import { getStories, formatDate } from '../../data/stories';
+import { TOPICS, topicLabel, topicUrl, audienceLabel } from '../../data/taxonomy';
+import { SITE } from '../../data/site';
+
+export async function getStaticPaths() {
+  const guides = await getGuides();
+  return guides.map((g) => ({ params: { slug: g.id }, props: { guide: g } }));
+}
+const { guide } = Astro.props;
+const d = guide.data;
+const { Content } = await render(guide);
+const topic = TOPICS.find((t) => t.id === d.topic)!;
+const related = (await getStories()).filter((s) => s.data.topic === d.topic).slice(0, 3);
+const url = new URL(`/guides/${guide.id}/`, Astro.site).href;
+const jsonLd: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: d.title,
+    description: d.description,
+    datePublished: d.published,
+    dateModified: d.updated,
+    url,
+    mainEntityOfPage: url,
+    image: new URL(SITE.ogImage, Astro.site).href,
+    articleSection: topic.label,
+    author: { '@id': `${SITE.url}/#angie` },
+    publisher: { '@id': `${SITE.url}/#organization` },
+    citation: d.sources.map((s) => ({ '@type': 'CreativeWork', name: s.title, url: s.url })),
+    inLanguage: 'en-US',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Guides', item: `${SITE.url}/guides/` },
+      { '@type': 'ListItem', position: 2, name: topic.label, item: `${SITE.url}${topicUrl(topic.id)}` },
+      { '@type': 'ListItem', position: 3, name: d.title, item: url },
+    ],
+  },
+];
+if (d.faq.length) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  });
+}
+---
+<Base title={d.seoTitle ?? d.title} description={d.description} type="article" published={d.published} jsonLd={jsonLd}>
+  <div class="layout">
+    <main id="content">
+      <article class="panel prose guide" style="max-width:none;padding:32px;display:flex;flex-direction:column;gap:6px">
+        <nav aria-label="Breadcrumb" class="label"><a href="/guides/">Guides</a> / <a href={topicUrl(d.topic)}>{topicLabel(d.topic)}</a></nav>
+        <h1 class="display" style="margin:8px 0">{d.title}</h1>
+        <p style="margin:0;font-size:14px;color:var(--muted)">For {audienceLabel(d.audience)} readers. By <a href="/about/#angie">{SITE.author}</a>. Updated <time datetime={d.updated}>{formatDate(d.updated, { month: 'long', day: 'numeric', year: 'numeric' })}</time>.</p>
+        <div class="do-this" style="margin:16px 0">
+          <span class="label">The short answer</span>
+          <p style="margin:0">{d.answer}</p>
+        </div>
+        <Content />
+        {d.faq.length > 0 && (
+          <section aria-labelledby="faq-h">
+            <h2 id="faq-h" class="display">Common questions</h2>
+            {d.faq.map((f) => (<><h3 style="font-size:19px;margin:18px 0 4px">{f.q}</h3><p style="margin:0">{f.a}</p></>))}
+          </section>
+        )}
+        {d.sources.length > 0 && (
+          <section aria-labelledby="src-h">
+            <h2 id="src-h" class="display">Sources</h2>
+            <ul>{d.sources.map((s) => <li><a href={s.url} rel="noopener" target="_blank">{s.title}</a></li>)}</ul>
+          </section>
+        )}
+        <p style="font-size:15px;color:var(--muted)">Researched with AI tools and reviewed before publishing. <a href="/editorial-policy/">How we work</a>. Spot something out of date? <a href="/contact/">Tell us</a>.</p>
+      </article>
+
+      <section class="panel" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+        <p style="margin:0;font-size:16px;flex:1 1 320px"><strong>Want a second set of eyes?</strong> Get a free Google and AI visibility check for your business or nonprofit.</p>
+        <a class="btn btn-hot" href={SITE.helpUrl} rel="noopener">Get the free check</a>
+      </section>
+
+      {related.length > 0 && (
+        <section aria-labelledby="related-h" style="display:flex;flex-direction:column;gap:16px">
+          <h2 id="related-h" class="day-head display">Latest {topicLabel(d.topic)} ledes</h2>
+          <div class="grid">{related.map((s) => <StoryCard story={s} />)}</div>
+          <a href={topicUrl(d.topic)}>All {topicLabel(d.topic)} news and guides</a>
+        </section>
+      )}
+    </main>
+    <aside><SignupForm id="guide-signup" heading="Get updates on this topic" /></aside>
+  </div>
+</Base>

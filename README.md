@@ -31,6 +31,14 @@ Each story is one JSON file in `src/content/stories/`, named `YYYY-MM-DD-short-s
 - `why`: optional but recommended; shown as "Why it matters" on the story page
 - `take`: optional first-person note from Angie, added during review; shown as "Angie's take"
 
+## Guides
+
+Evergreen explainers live in `src/content/guides/` as Markdown with frontmatter: `title`, `seoTitle`, `description`, `topic`, `audience`, `published`, `updated`, `answer` (the direct answer shown first), `faq` (list of `q`/`a`), `sources` (list of `title`/`url`), optional `draft`. Guides appear on their topic hub, on `/guides/`, on audience pages, and as a "Go deeper" link on story pages in the same topic. Update the `updated` date whenever facts change.
+
+## Information architecture
+
+Topic hubs live at keyword URLs (`/topics/ai-search-seo/` and so on; see `slug` in `src/data/taxonomy.ts`). Story files keep the short topic ids. Old `/topics/<id>/` URLs redirect via `public/_redirects`. Audience pages: `/for/small-business/` and `/for/marketers/`.
+
 ## Weekly roundup
 
 One JSON file per week in `src/content/roundups/`. `picks` lists story file names (without `.json`). Set `draft: true` until it is approved; drafts are hidden from the RSS feed that the email tool reads, and set to noindex.

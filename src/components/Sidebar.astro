@@ -28,7 +28,7 @@ const { showTopics = true } = Astro.props;
     <nav class="panel" aria-labelledby="topics-h" style="display:flex;flex-direction:column;gap:10px">
       <h2 id="topics-h" class="display" style="margin:0;font-size:24px">Browse by topic</h2>
       <div class="topic-links">
-        {TOPICS.map((t) => <a href={`/topics/${t.id}/`}>{t.label}</a>)}
+        {TOPICS.map((t) => <a href={`/topics/${t.slug}/`}>{t.label}</a>)}
       </div>
     </nav>
   )}
