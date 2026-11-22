@@ -114,7 +114,7 @@ const ld = {
       <div class="topbar">
         <nav aria-label="Site">
           <a class="brand" href="/">{SITE.name}</a>
-          <a href="/">Latest</a>
+          <a class="nav-latest" href="/">Latest</a>
           <a href="/topics/">Topics</a>
           <a href="/guides/">Guides</a>
           <a href="/roundups/">Roundups</a>
@@ -139,7 +139,7 @@ const ld = {
         var btn = document.getElementById('theme-toggle');
         if (!btn) return;
         function label() {
-          btn.textContent = document.documentElement.dataset.theme === 'jazz' ? 'Chill out, my screen' : 'Jazz up my screen';
+          btn.textContent = document.documentElement.dataset.theme === 'jazz' ? 'Chill out my screen' : 'Jazz up my screen';
         }
         label();
         btn.addEventListener('click', function () {

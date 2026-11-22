@@ -9,10 +9,13 @@ const { stories, showTopicFilter = true, leadFirst = true } = Astro.props;
 const groups = groupByDate(stories);
 ---
 <div class="filters" data-feed-filters>
+  <div class="feed-tools">
+  <slot name="tools" />
   <button type="button" class="btn btn-sm filter-toggle" data-filter-toggle aria-expanded="false" aria-controls="feed-filter-body">
     <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4" /></svg>
     <span data-filter-toggle-label>Filter ledes</span>
   </button>
+  </div>
   <div class="filter-body" id="feed-filter-body">
   {showTopicFilter && (
     <div class="filter-row topic-row" role="group" aria-label="Filter by topic">

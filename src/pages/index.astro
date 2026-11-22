@@ -16,14 +16,13 @@ const stories = all.filter((s) => days.includes(s.data.date));
     <div class="masthead-text">
       <h1 class="display">{SITE.name}</h1>
       <p class="tagline">{SITE.tagline}</p>
-      <p class="subtag">Marketing news for small businesses, nonprofits and the marketers who serve them. Updated every weekday.</p>
+      <p class="subtag">Marketing news for small businesses, nonprofits and the marketers who serve them. Updated daily.</p>
     </div>
   </header>
 
   <div class="layout">
     <main id="content">
-      <PaperBar />
-      <StoryFeed stories={stories} />
+      <StoryFeed stories={stories}><PaperBar slot="tools" /></StoryFeed>
       <p style="margin:0"><a href="/archive/">Browse every lede in the archive</a></p>
     </main>
     <Sidebar />
