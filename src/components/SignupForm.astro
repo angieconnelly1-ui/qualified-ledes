@@ -1,11 +1,12 @@
 ---
 // Netlify Forms collects signups until an email tool is chosen. Export the list from Netlify later.
-interface Props { id?: string; heading?: string; }
-const { id = 'signup', heading = 'Join the early list' } = Astro.props;
+interface Props { id?: string; heading?: string; kicker?: string; blurb?: string; magnet?: boolean; }
+const { id = 'signup', heading = 'Join the early list', kicker, blurb, magnet = false } = Astro.props;
 ---
-<section class="panel signup" id={id} aria-labelledby={`${id}-h`} style="display:flex;flex-direction:column;gap:12px">
+<section class:list={['panel', 'signup', { magnet }]} id={id} aria-labelledby={`${id}-h`} style="display:flex;flex-direction:column;gap:12px">
+  {kicker && <p class="label" style="margin:0">{kicker}</p>}
   <h2 id={`${id}-h`} class="display">{heading}</h2>
-  <p>The weekly email is coming soon. Join now to get the first issue and early access to free templates. No spam, unsubscribe anytime. <a href="/privacy/">Privacy</a></p>
+  <p>{blurb ?? 'The weekly email is coming soon. Join now to get the first issue and early access to free templates.'} No spam, unsubscribe anytime. <a href="/privacy/">Privacy</a></p>
   <form name="subscribe" method="POST" action="/subscribe/thanks/" data-netlify="true" netlify-honeypot="bot-field">
     <input type="hidden" name="form-name" value="subscribe" />
     <p class="hidden-field"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>

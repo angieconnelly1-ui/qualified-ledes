@@ -8,25 +8,30 @@ interface Props { stories: Story[]; showTopicFilter?: boolean; leadFirst?: boole
 const { stories, showTopicFilter = true, leadFirst = true } = Astro.props;
 const groups = groupByDate(stories);
 ---
-<div class="panel filters" data-feed-filters>
-  <div class="filter-row" role="group" aria-label="Filter by reader">
-    <span class="label">Reader</span>
-    <button type="button" class="chip" data-group="aud" data-value="all" aria-pressed="true">Everyone</button>
-    {AUDIENCES.map((a) => <button type="button" class="chip" data-group="aud" data-value={a.id} aria-pressed="false">{a.long}</button>)}
-  </div>
+<div class="filters" data-feed-filters>
   {showTopicFilter && (
-    <div class="filter-row" role="group" aria-label="Filter by topic">
-      <span class="label">Topic</span>
+    <div class="filter-row topic-row" role="group" aria-label="Filter by topic">
       <button type="button" class="chip" data-group="topic" data-value="all" aria-pressed="true">All topics</button>
       <button type="button" class="chip" data-group="topic" data-value="mine" aria-pressed="false" data-mine-chip hidden>My topics</button>
       {TOPICS.map((t) => <button type="button" class="chip" data-group="topic" data-value={t.id} aria-pressed="false">{t.label}</button>)}
     </div>
   )}
-  <div class="filter-row" role="group" aria-label="Filter by heat">
-    <span class="label">Heat</span>
-    <button type="button" class="chip" data-group="heat" data-value="all" aria-pressed="true">All</button>
-    {HEATS.map((h) => <button type="button" class="chip" data-group="heat" data-value={h.id} aria-pressed="false">{h.label}</button>)}
-  </div>
+  <details class="more-filters" data-more-filters>
+    <summary>More filters</summary>
+    <div class="more-filters-body">
+      <div class="filter-row" role="group" aria-label="Filter by reader">
+        <span class="label">Reader</span>
+        <button type="button" class="chip" data-group="aud" data-value="all" aria-pressed="true">Everyone</button>
+        {AUDIENCES.map((a) => <button type="button" class="chip" data-group="aud" data-value={a.id} aria-pressed="false">{a.long}</button>)}
+      </div>
+      <div class="filter-row" role="group" aria-label="Filter by heat">
+        <span class="label">Heat</span>
+        <button type="button" class="chip" data-group="heat" data-value="all" aria-pressed="true">All</button>
+        {HEATS.map((h) => <button type="button" class="chip" data-group="heat" data-value={h.id} aria-pressed="false">{h.label}</button>)}
+      </div>
+      <p class="heat-key">{HEATS.map((h) => <span><span class={`stamp heat-${h.id}`}>{h.label}</span> {h.meaning}</span>)}</p>
+    </div>
+  </details>
   <div class="filter-status">
     <span aria-live="polite" data-feed-count>Showing {stories.length} of {stories.length} ledes</span>
     <button type="button" class="btn btn-plain" data-feed-reset hidden>Clear filters</button>
@@ -75,6 +80,8 @@ const groups = groupByDate(stories);
     }
     applyPrefs(prefs);
     ['aud', 'topic', 'heat'].forEach(function (k) { if (params.get(k)) state[k] = params.get(k); });
+    var more = root.querySelector('[data-more-filters]');
+    if (more && (state.aud !== 'all' || state.heat !== 'all')) more.open = true;
     document.addEventListener('ql:prefs', function (e) { applyPrefs(e.detail); apply(); });
 
     function apply() {

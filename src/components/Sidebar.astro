@@ -1,28 +1,17 @@
 ---
-import { HEATS, TOPICS } from '../data/taxonomy';
+import { TOPICS } from '../data/taxonomy';
 import { MAGNET } from '../data/site';
 import SignupForm from './SignupForm.astro';
 interface Props { showTopics?: boolean; }
 const { showTopics = true } = Astro.props;
 ---
 <aside>
-  <section class="panel key" aria-labelledby="key-h" style="display:flex;flex-direction:column;gap:12px">
-    <h2 id="key-h" class="display">How hot is it?</h2>
-    {HEATS.map((h) => (
-      <div class="key-row"><span class={`stamp heat-${h.id}`} style="transform:none">{h.label}</span><span>{h.meaning}</span></div>
-    ))}
-  </section>
-
-  <section class="panel magnet" aria-labelledby="magnet-h">
-    <p class="label" style="margin:0">Lede magnet: free this week</p>
-    <h2 id="magnet-h" class="display">{MAGNET.title}</h2>
-    <p>{MAGNET.description}</p>
-    {MAGNET.url
-      ? <a class="btn btn-ink" style="align-self:flex-start" href={MAGNET.url}>Get the checklist</a>
-      : <a class="btn btn-ink" style="align-self:flex-start" href="/subscribe/">Join the list to get it first</a>}
-  </section>
-
-  <SignupForm />
+  <SignupForm
+    kicker="Free this week"
+    heading={MAGNET.title}
+    blurb={`${MAGNET.description} Join the early list and it's yours first, along with the weekly email when it launches.`}
+    magnet
+  />
 
   {showTopics && (
     <nav class="panel" aria-labelledby="topics-h" style="display:flex;flex-direction:column;gap:10px">
