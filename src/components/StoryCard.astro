@@ -6,27 +6,45 @@ interface Props { story: Story; lead?: boolean; headingLevel?: 'h2' | 'h3'; }
 const { story, lead = false, headingLevel = 'h3' } = Astro.props;
 const d = story.data;
 const H = headingLevel;
+const path = `/stories/${story.id}/`;
 ---
 <article
   id={story.id}
   class:list={['card', 'panel', { 'is-lead': lead }]}
+  data-story={story.id}
   data-topic={d.topic}
   data-aud={d.audience}
   data-heat={d.heat}
+  data-date={d.date}
+  data-pagefind-ignore
 >
   <div class="meta">
     <span class={`stamp heat-${d.heat}`}>{heatInfo(d.heat).stamp}</span>
+    <span class="stamp new-badge" data-new-badge hidden>New</span>
     <span><a href={topicUrl(d.topic)}>{topicLabel(d.topic)}</a> / {audienceLabel(d.audience)}</span>
   </div>
-  <H class="display"><a href={`/stories/${story.id}/`} style="text-decoration:none">{d.headline}</a></H>
+  <H class="display"><a href={path} style="text-decoration:none">{d.headline}</a></H>
   <p>{d.dek}</p>
   <div class="do-this">
     <span class="label">Do this</span>
     <p>{d.doThis}</p>
+    <button type="button" class="done-btn" data-done={story.id} aria-pressed="false">
+      <span class="done-box" aria-hidden="true"></span><span data-done-label>I did this</span>
+    </button>
   </div>
   {d.take && <p style="font-style:italic"><strong>Angie's take:</strong> {d.take}</p>}
-  <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:auto">
-    <a class="source" style="margin-top:0" href={`/stories/${story.id}/`}>Full lede</a>
-    <a class="source" style="margin-top:0" href={d.url} rel="noopener" target="_blank">Read it at {d.source}</a>
+  <div class="card-actions">
+    <a class="source" href={path}>Full lede</a>
+    <a class="source" href={d.url} rel="noopener" target="_blank">Read it at {d.source}</a>
+    <span class="card-tools">
+      <button type="button" class="tool-btn" data-save={story.id} aria-pressed="false" aria-label={`Save: ${d.headline}`}>
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z" /></svg>
+        <span data-save-label>Save</span>
+      </button>
+      <button type="button" class="tool-btn" data-copy={path} aria-label={`Copy link: ${d.headline}`}>
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1" /><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" /></svg>
+        <span data-copy-label>Copy link</span>
+      </button>
+    </span>
   </div>
 </article>

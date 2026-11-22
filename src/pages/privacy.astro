@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+<Base title="Privacy policy" description="What Qualified Ledes collects, why, and how to ask us to delete it.">
+  <main id="content" class="prose">
+    <h1 class="display">Privacy policy</h1>
+    <p>Last updated November 22, 2026. {SITE.name} is run by {SITE.author} in Richmond, Virginia. This page explains what we collect and why, in plain English.</p>
+
+    <h2 class="display">Things stored only in your browser</h2>
+    <p>These features save small bits of information in your browser's local storage. They never leave your device and we cannot see them:</p>
+    <ul>
+      <li>Your Chill or Jazz display setting</li>
+      <li>Your "My paper" choices (reader type and topics)</li>
+      <li>Stories you save, and the "I did this" checkmarks</li>
+      <li>Which stories you have already seen, so we can mark new ones</li>
+      <li>Your answer to the analytics question, if we asked</li>
+    </ul>
+    <p>Clearing your browser data removes all of it.</p>
+
+    <h2 class="display">Analytics</h2>
+    <p>We use Google Analytics 4 to understand which pages and features are useful, such as how many people save a story or use search. Google Analytics uses cookies and collects information like pages viewed, approximate location, device and browser. We do not run ads, and ad-related storage is turned off.</p>
+    <p>If you visit from the European Economic Area, the United Kingdom or Switzerland, analytics cookies stay off unless you agree. You can change your answer by clearing this site's data in your browser. You can also use Google's <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">Analytics opt-out add-on</a>.</p>
+
+    <h2 class="display">When you give us your email</h2>
+    <p>If you join the list or use the contact form, we collect what you type in: your email address, and your name and message for contact requests. Forms are handled by our host, Netlify, which stores the submissions. We use your email only to send the Qualified Ledes newsletter once it launches, and to reply to you. We never sell or rent it. Every email will include a way to unsubscribe.</p>
+    <p>When we choose an email service, your address will move there, and we will update this page to name it.</p>
+
+    <h2 class="display">Server logs</h2>
+    <p>Like nearly every website, our host keeps standard server logs, such as IP addresses and the pages requested, to run and secure the site.</p>
+
+    <h2 class="display">Links to other sites</h2>
+    <p>Every story links to its original source. Those sites have their own privacy practices.</p>
+
+    <h2 class="display">Your choices</h2>
+    <p>You can ask us to show you, correct or delete the personal information we hold, such as your email address. <a href="/contact/">Contact us</a> and we will take care of it.</p>
+
+    <h2 class="display">Changes</h2>
+    <p>If this policy changes, we will update the date at the top of this page.</p>
+  </main>
+</Base>

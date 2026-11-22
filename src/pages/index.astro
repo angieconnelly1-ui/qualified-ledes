@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import StoryFeed from '../components/StoryFeed.astro';
 import Sidebar from '../components/Sidebar.astro';
+import PaperBar from '../components/PaperBar.astro';
 import { getStories } from '../data/stories';
 import { SITE } from '../data/site';
 
@@ -15,13 +16,14 @@ const stories = all.filter((s) => days.includes(s.data.date));
     <div class="masthead-text">
       <h1 class="display">{SITE.name}</h1>
       <p class="tagline">{SITE.tagline}</p>
-      <p class="subtag">Marketing news for small businesses, nonprofits and the marketers who serve them. Updated every weekday, with a roundup in your inbox each week. <a href="/subscribe/">Subscribe free</a>.</p>
+      <p class="subtag">Marketing news for small businesses, nonprofits and the marketers who serve them. Updated every weekday. <a href="/guides/">Start with a guide</a> or make it your paper below.</p>
     </div>
     <div class="starburst" aria-hidden="true"><span>Extra!<br />Fresh ledes</span></div>
   </header>
 
   <div class="layout">
     <main id="content">
+      <PaperBar />
       <StoryFeed stories={stories} />
       <p style="margin:0"><a href="/archive/">Browse every lede in the archive</a></p>
     </main>

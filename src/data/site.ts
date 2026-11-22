@@ -11,6 +11,8 @@ export const SITE = {
     'Angie Connelly is a demand generation and revenue operations leader with more than 11 years in B2B marketing, and an independent consultant to small businesses, nonprofits and MSPs in Richmond, Virginia.',
   helpUrl: 'https://angieconnelly.com/free-visibility-check',
   ogImage: '/og-default.png',
+  // GA4 Measurement ID (G-XXXXXXX). Leave empty to load no analytics.
+  gaId: '',
 };
 
 // The free resource of the week. Swap it out with each roundup.

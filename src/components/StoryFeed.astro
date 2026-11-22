@@ -18,6 +18,7 @@ const groups = groupByDate(stories);
     <div class="filter-row" role="group" aria-label="Filter by topic">
       <span class="label">Topic</span>
       <button type="button" class="chip" data-group="topic" data-value="all" aria-pressed="true">All topics</button>
+      <button type="button" class="chip" data-group="topic" data-value="mine" aria-pressed="false" data-mine-chip hidden>My topics</button>
       {TOPICS.map((t) => <button type="button" class="chip" data-group="topic" data-value={t.id} aria-pressed="false">{t.label}</button>)}
     </div>
   )}
@@ -61,7 +62,20 @@ const groups = groupByDate(stories);
     var total = feed.querySelectorAll('.card').length;
     var state = { aud: 'all', topic: 'all', heat: 'all' };
     var params = new URLSearchParams(location.search);
+    var prefs = null;
+    try { prefs = JSON.parse(localStorage.getItem('ql-prefs') || 'null'); } catch (e) {}
+    var mineChip = root.querySelector('[data-mine-chip]');
+    function applyPrefs(p) {
+      prefs = p;
+      if (mineChip) mineChip.hidden = !(prefs && prefs.topics && prefs.topics.length);
+      if (prefs) {
+        state.aud = prefs.aud || 'all';
+        if (mineChip) state.topic = prefs.topics && prefs.topics.length ? 'mine' : 'all';
+      }
+    }
+    applyPrefs(prefs);
     ['aud', 'topic', 'heat'].forEach(function (k) { if (params.get(k)) state[k] = params.get(k); });
+    document.addEventListener('ql:prefs', function (e) { applyPrefs(e.detail); apply(); });
 
     function apply() {
       root.querySelectorAll('.chip').forEach(function (c) {
@@ -69,7 +83,9 @@ const groups = groupByDate(stories);
       });
       var shown = 0;
       feed.querySelectorAll('.card').forEach(function (card) {
-        var ok = (state.topic === 'all' || card.dataset.topic === state.topic) &&
+        var topicOk = state.topic === 'all' ||
+          (state.topic === 'mine' ? !!(prefs && prefs.topics && prefs.topics.indexOf(card.dataset.topic) !== -1) : card.dataset.topic === state.topic);
+        var ok = topicOk &&
           (state.heat === 'all' || card.dataset.heat === state.heat) &&
           (state.aud === 'all' || card.dataset.aud === state.aud || card.dataset.aud === 'both');
         card.hidden = !ok;
@@ -84,14 +100,17 @@ const groups = groupByDate(stories);
       var empty = feed.querySelector('[data-feed-empty]');
       if (empty) empty.hidden = shown > 0 || total === 0;
       var q = new URLSearchParams();
-      Object.keys(state).forEach(function (k) { if (state[k] !== 'all') q.set(k, state[k]); });
+      Object.keys(state).forEach(function (k) { if (state[k] !== 'all' && state[k] !== 'mine') q.set(k, state[k]); });
       var qs = q.toString();
       history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
     }
 
     root.addEventListener('click', function (e) {
       var chip = e.target.closest('.chip');
-      if (chip) { state[chip.dataset.group] = chip.dataset.value; apply(); }
+      if (chip) {
+        state[chip.dataset.group] = chip.dataset.value; apply();
+        if (window.qlTrack) window.qlTrack('filter', { group: chip.dataset.group, value: chip.dataset.value });
+      }
       if (e.target.closest('[data-feed-reset]')) { state = { aud: 'all', topic: 'all', heat: 'all' }; apply(); }
     });
     apply();

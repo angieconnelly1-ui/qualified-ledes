@@ -56,10 +56,10 @@ if (d.faq.length) {
 <Base title={d.seoTitle ?? d.title} description={d.description} type="article" published={d.published} jsonLd={jsonLd}>
   <div class="layout">
     <main id="content">
-      <article class="panel prose guide" style="max-width:none;padding:32px;display:flex;flex-direction:column;gap:6px">
+      <article data-pagefind-body class="panel prose guide" style="max-width:none;padding:32px;display:flex;flex-direction:column;gap:6px">
         <nav aria-label="Breadcrumb" class="label"><a href="/guides/">Guides</a> / <a href={topicUrl(d.topic)}>{topicLabel(d.topic)}</a></nav>
         <h1 class="display" style="margin:8px 0">{d.title}</h1>
-        <p style="margin:0;font-size:14px;color:var(--muted)">For {audienceLabel(d.audience)} readers. By <a href="/about/#angie">{SITE.author}</a>. Updated <time datetime={d.updated}>{formatDate(d.updated, { month: 'long', day: 'numeric', year: 'numeric' })}</time>.</p>
+        <p data-pagefind-ignore style="margin:0;font-size:14px;color:var(--muted)">For {audienceLabel(d.audience)} readers. By <a href="/about/#angie">{SITE.author}</a>. Updated <time datetime={d.updated}>{formatDate(d.updated, { month: 'long', day: 'numeric', year: 'numeric' })}</time>.</p>
         <div class="do-this" style="margin:16px 0">
           <span class="label">The short answer</span>
           <p style="margin:0">{d.answer}</p>
@@ -77,6 +77,10 @@ if (d.faq.length) {
             <ul>{d.sources.map((s) => <li><a href={s.url} rel="noopener" target="_blank">{s.title}</a></li>)}</ul>
           </section>
         )}
+        <div style="display:flex;flex-wrap:wrap;gap:8px" data-pagefind-ignore>
+          <button type="button" class="tool-btn" data-copy={`/guides/${guide.id}/`}><span data-copy-label>Copy link</span></button>
+          <a class="tool-btn" style="text-decoration:none" data-share-linkedin href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} target="_blank" rel="noopener">Share on LinkedIn</a>
+        </div>
         <p style="font-size:15px;color:var(--muted)">Researched with AI tools and reviewed before publishing. <a href="/editorial-policy/">How we work</a>. Spot something out of date? <a href="/contact/">Tell us</a>.</p>
       </article>
 

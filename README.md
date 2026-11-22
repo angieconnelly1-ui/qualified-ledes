@@ -43,9 +43,17 @@ Topic hubs live at keyword URLs (`/topics/ai-search-seo/` and so on; see `slug` 
 
 One JSON file per week in `src/content/roundups/`. `picks` lists story file names (without `.json`). Set `draft: true` until it is approved; drafts are hidden from the RSS feed that the email tool reads, and set to noindex.
 
+## Reader features
+
+`public/reader.js` powers saves, "I did this" checkmarks, "new since your last visit" badges, copy-link and the analytics consent bar. `src/components/PaperBar.astro` handles "My paper" preferences. Everything is stored in the visitor's browser (localStorage keys start with `ql-`). Search is Pagefind, built after Astro (`npm run build`), indexing story and guide pages only.
+
+## Analytics
+
+Set `gaId` in `src/data/site.ts` to the GA4 Measurement ID to turn on Google Analytics. Consent Mode keeps analytics off by default in the EEA, UK and Switzerland, and a consent bar appears for visitors on European time zones. Custom events: `save_story`, `did_it`, `share`, `filter`, `set_paper`, `search`. Do not also add the GA tag through Netlify snippet injection, or visits count twice.
+
 ## Signups
 
-The signup form uses Netlify Forms (form name `subscribe`). Enable form detection in Netlify, then export the list when an email tool is chosen.
+The signup form uses Netlify Forms (form name `subscribe`). Enable form detection in Netlify, then export the list when an email tool is chosen. The site describes email as coming soon until then.
 
 ## Commands
 

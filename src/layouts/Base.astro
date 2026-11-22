@@ -1,4 +1,5 @@
 ---
+import '@fontsource/dm-serif-display/latin-400.css';
 import '../styles/global.css';
 import { SITE } from '../data/site';
 
@@ -75,15 +76,35 @@ const ld = {
     <link rel="alternate" type="application/rss+xml" title="Qualified Ledes weekly roundup" href="/rss.xml" />
     <link rel="alternate" type="application/rss+xml" title="Qualified Ledes daily stories" href="/stories.xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" />
     <script is:inline>
       try {
         var t = localStorage.getItem('ql-theme');
         if (t === 'jazz' || t === 'chill') document.documentElement.dataset.theme = t;
       } catch (e) {}
     </script>
+    {SITE.gaId && (
+      <>
+        <script is:inline define:vars={{ gaId: SITE.gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          window.gtag = gtag;
+          // EEA, UK and Switzerland: analytics off until the visitor accepts.
+          gtag('consent', 'default', {
+            analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+            region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],
+          });
+          // Everywhere else: analytics on, ads storage off (this site runs no ads).
+          gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+          try {
+            var c = localStorage.getItem('ql-consent');
+            if (c === 'granted' || c === 'denied') gtag('consent', 'update', { analytics_storage: c });
+          } catch (e) {}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.gaId}`}></script>
+      </>
+    )}
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
     {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
   </head>
@@ -98,10 +119,12 @@ const ld = {
           <a href="/topics/">Topics</a>
           <a href="/guides/">Guides</a>
           <a href="/archive/">Archive</a>
+          <a href="/saved/">Saved</a>
+          <a href="/search/">Search</a>
           <a href="/about/">About</a>
         </nav>
         <div style="display:flex;flex-wrap:wrap;gap:10px">
-          <a class="btn btn-hot" href="/subscribe/">Subscribe free</a>
+          <a class="btn btn-hot" href="/subscribe/">Join the list</a>
           <button type="button" class="btn btn-ink" id="theme-toggle">Jazz up my screen</button>
         </div>
       </div>
@@ -110,7 +133,7 @@ const ld = {
 
       <footer class="site-footer">
         <span>Curated by {SITE.author} in Richmond, VA. <a href={SITE.authorUrl}>angieconnelly.com</a></span>
-        <span><a href="/editorial-policy/">Editorial policy</a> · <a href="/contact/">Contact</a> · <a href="/rss.xml">RSS</a></span>
+        <span><a href="/editorial-policy/">Editorial policy</a> · <a href="/privacy/">Privacy</a> · <a href="/contact/">Contact</a> · <a href="/rss.xml">RSS</a></span>
       </footer>
     </div>
 
@@ -130,5 +153,13 @@ const ld = {
         });
       })();
     </script>
+    <div class="consent panel" data-consent hidden role="region" aria-label="Analytics consent">
+      <p>We use Google Analytics to see which stories help most. It sets cookies only if you say yes. <a href="/privacy/">Privacy</a></p>
+      <div style="display:flex;gap:8px">
+        <button type="button" class="btn btn-plain" data-consent-choice="denied">No thanks</button>
+        <button type="button" class="btn btn-ink" data-consent-choice="granted">That's fine</button>
+      </div>
+    </div>
+    <script is:inline src="/reader.js"></script>
   </body>
 </html>

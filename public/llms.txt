@@ -8,6 +8,8 @@
 - [Weekly roundups](https://qualifiedledes.com/roundups/): the week's best stories
 - [Topics](https://qualifiedledes.com/topics/): AI search and SEO, local SEO and Google Business Profile, ads and social media, websites and AI tools, nonprofit marketing, MSP and B2B marketing, privacy and consent, Richmond and Virginia, freelance and agency pricing
 - [About](https://qualifiedledes.com/about/): who curates the site
+- [Privacy policy](https://qualifiedledes.com/privacy/)
+- [Search](https://qualifiedledes.com/search/)
 - [Editorial policy](https://qualifiedledes.com/editorial-policy/): how stories are picked, written, reviewed and corrected, and how AI is used
 - Story pages live at https://qualifiedledes.com/stories/<slug>/ and each one links its original source
 

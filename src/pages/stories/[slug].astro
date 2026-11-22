@@ -50,7 +50,7 @@ const crumbs = {
 <Base title={d.headline} description={d.dek} type="article" published={published} jsonLd={[article, crumbs]}>
   <div class="layout">
     <main id="content">
-      <article class="panel" style="padding:32px;display:flex;flex-direction:column;gap:16px">
+      <article class="panel" data-pagefind-body style="padding:32px;display:flex;flex-direction:column;gap:16px">
         <nav aria-label="Breadcrumb" class="label" style="margin:0">
           <a href="/">Home</a> / <a href={topicUrl(d.topic)}>{topicLabel(d.topic)}</a>
         </nav>
@@ -73,6 +73,7 @@ const crumbs = {
         <div class="do-this">
           <span class="label">Do this</span>
           <p style="margin:0;font-size:17px">{d.doThis}</p>
+          <button type="button" class="done-btn" data-done={story.id} aria-pressed="false" data-pagefind-ignore><span class="done-box" aria-hidden="true"></span><span data-done-label>I did this</span></button>
         </div>
 
         {d.take && (
@@ -82,6 +83,11 @@ const crumbs = {
           </div>
         )}
 
+        <div style="display:flex;flex-wrap:wrap;gap:8px" data-pagefind-ignore>
+          <button type="button" class="tool-btn" data-save={story.id} aria-pressed="false"><span data-save-label>Save</span></button>
+          <button type="button" class="tool-btn" data-copy={`/stories/${story.id}/`}><span data-copy-label>Copy link</span></button>
+          <a class="tool-btn" style="text-decoration:none" data-share-linkedin href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} target="_blank" rel="noopener">Share on LinkedIn</a>
+        </div>
         <p style="margin:0;font-size:16px">Source: <a href={d.url} rel="noopener" target="_blank">{d.source}</a>. Summary written by {SITE.name}; read the original for the full story.</p>
         <p style="margin:0;font-size:14px;color:var(--muted)">By <a href="/about/#angie">{SITE.author}</a>. Researched with AI tools and reviewed before publishing. <a href="/editorial-policy/">How we work</a>.</p>
       </article>
