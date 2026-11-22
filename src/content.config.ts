@@ -36,4 +36,22 @@ const roundups = defineCollection({
   }),
 });
 
-export const collections = { stories, roundups };
+// Evergreen guides: one question answered well, with sources and FAQ.
+const guides = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
+  schema: z.object({
+    title: z.string(),
+    seoTitle: z.string().optional(),
+    description: z.string(),
+    topic: z.enum(TOPIC_IDS),
+    audience: z.enum(['main', 'trade', 'both']),
+    published: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    answer: z.string(),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+    sources: z.array(z.object({ title: z.string(), url: z.string().url() })).default([]),
+    draft: z.boolean().optional(),
+  }),
+});
+
+export const collections = { stories, roundups, guides };

@@ -3,8 +3,9 @@ import Base from '../../layouts/Base.astro';
 import StoryCard from '../../components/StoryCard.astro';
 import SignupForm from '../../components/SignupForm.astro';
 import { getStories, formatDate } from '../../data/stories';
-import { topicLabel, audienceLabel, heatInfo, TOPICS } from '../../data/taxonomy';
+import { topicLabel, audienceLabel, heatInfo, TOPICS, topicUrl } from '../../data/taxonomy';
 import { SITE } from '../../data/site';
+import { getGuides } from '../../data/guides';
 
 export async function getStaticPaths() {
   const all = await getStories();
@@ -14,6 +15,7 @@ const { story } = Astro.props;
 const d = story.data;
 const all = await getStories();
 const related = all.filter((s) => s.id !== story.id && s.data.topic === d.topic).slice(0, 3);
+const guide = (await getGuides()).find((g) => g.data.topic === d.topic);
 const url = new URL(`/stories/${story.id}/`, Astro.site).href;
 const topic = TOPICS.find((t) => t.id === d.topic)!;
 const published = `${d.date}T07:00:00-05:00`;
@@ -40,7 +42,7 @@ const crumbs = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' },
-    { '@type': 'ListItem', position: 2, name: topic.label, item: `${SITE.url}/topics/${topic.id}/` },
+    { '@type': 'ListItem', position: 2, name: topic.label, item: `${SITE.url}/topics/${topic.slug}/` },
     { '@type': 'ListItem', position: 3, name: d.headline, item: url },
   ],
 };
@@ -50,7 +52,7 @@ const crumbs = {
     <main id="content">
       <article class="panel" style="padding:32px;display:flex;flex-direction:column;gap:16px">
         <nav aria-label="Breadcrumb" class="label" style="margin:0">
-          <a href="/">Home</a> / <a href={`/topics/${d.topic}/`}>{topicLabel(d.topic)}</a>
+          <a href="/">Home</a> / <a href={topicUrl(d.topic)}>{topicLabel(d.topic)}</a>
         </nav>
         <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:14px">
           <span class={`stamp heat-${d.heat}`}>{heatInfo(d.heat).stamp}</span>
@@ -84,6 +86,14 @@ const crumbs = {
         <p style="margin:0;font-size:14px;color:var(--muted)">By <a href="/about/#angie">{SITE.author}</a>. Researched with AI tools and reviewed before publishing. <a href="/editorial-policy/">How we work</a>.</p>
       </article>
 
+      {guide && (
+        <section class="panel" style="display:flex;flex-direction:column;gap:6px">
+          <span class="label">Go deeper</span>
+          <a class="display" style="font-size:24px;text-decoration:none" href={`/guides/${guide.id}/`}>{guide.data.title}</a>
+          <p style="margin:0;font-size:15px">{guide.data.description}</p>
+        </section>
+      )}
+
       <section class="panel" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
         <p style="margin:0;font-size:16px;flex:1 1 320px"><strong>Want help with this?</strong> Get a free Google and AI visibility check for your business or nonprofit.</p>
         <a class="btn btn-hot" href={SITE.helpUrl} rel="noopener">Get the free check</a>
@@ -93,7 +103,7 @@ const crumbs = {
         <section aria-labelledby="related-h" style="display:flex;flex-direction:column;gap:16px">
           <h2 id="related-h" class="day-head display">More on {topicLabel(d.topic)}</h2>
           <div class="grid">{related.map((s) => <StoryCard story={s} />)}</div>
-          <a href={`/topics/${d.topic}/`}>All {topicLabel(d.topic)} ledes</a>
+          <a href={topicUrl(d.topic)}>All {topicLabel(d.topic)} ledes</a>
         </section>
       )}
     </main>

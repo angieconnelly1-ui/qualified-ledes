@@ -11,7 +11,7 @@ const count = (id: string) => stories.filter((s) => s.data.topic === id).length;
   </header>
   <main id="content" class="grid">
     {TOPICS.map((t) => (
-      <a class="panel" href={`/topics/${t.id}/`} style="text-decoration:none;display:flex;flex-direction:column;gap:8px">
+      <a class="panel" href={`/topics/${t.slug}/`} style="text-decoration:none;display:flex;flex-direction:column;gap:8px">
         <h2 class="display" style="margin:0;font-size:28px">{t.label}</h2>
         <p style="margin:0">{t.blurb}</p>
         <span class="label">{count(t.id)} {count(t.id) === 1 ? 'lede' : 'ledes'}</span>

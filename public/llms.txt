@@ -6,10 +6,20 @@
 - [Latest stories](https://qualifiedledes.com/): the last two weeks of ledes, filterable by reader, topic and urgency
 - [Archive](https://qualifiedledes.com/archive/): every story, newest first
 - [Weekly roundups](https://qualifiedledes.com/roundups/): the week's best stories
-- [Topics](https://qualifiedledes.com/topics/): AI search and SEO, local SEO and Google Business Profile, ads and social, websites and tools, nonprofits, B2B and MSP, privacy and consent, Richmond and Virginia, pricing and offers
+- [Topics](https://qualifiedledes.com/topics/): AI search and SEO, local SEO and Google Business Profile, ads and social media, websites and AI tools, nonprofit marketing, MSP and B2B marketing, privacy and consent, Richmond and Virginia, freelance and agency pricing
 - [About](https://qualifiedledes.com/about/): who curates the site
 - [Editorial policy](https://qualifiedledes.com/editorial-policy/): how stories are picked, written, reviewed and corrected, and how AI is used
 - Story pages live at https://qualifiedledes.com/stories/<slug>/ and each one links its original source
+
+## Guides
+- [Google Ad Grants explained](https://qualifiedledes.com/guides/google-ad-grants-explained/)
+- [Google Business Profile suspended: what to do](https://qualifiedledes.com/guides/google-business-profile-suspended/)
+- [ChatGPT for small business](https://qualifiedledes.com/guides/chatgpt-for-small-business/)
+- [All guides](https://qualifiedledes.com/guides/)
+
+## Audiences
+- [For small business owners and nonprofits](https://qualifiedledes.com/for/small-business/)
+- [For marketers, freelancers and agencies](https://qualifiedledes.com/for/marketers/)
 
 ## Feeds
 - [News sitemap](https://qualifiedledes.com/news-sitemap.xml): stories from the last two days

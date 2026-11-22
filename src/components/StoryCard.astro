@@ -1,6 +1,6 @@
 ---
 import type { Story } from '../data/stories';
-import { topicLabel, audienceLabel, heatInfo } from '../data/taxonomy';
+import { topicLabel, audienceLabel, heatInfo, topicUrl } from '../data/taxonomy';
 
 interface Props { story: Story; lead?: boolean; headingLevel?: 'h2' | 'h3'; }
 const { story, lead = false, headingLevel = 'h3' } = Astro.props;
@@ -16,7 +16,7 @@ const H = headingLevel;
 >
   <div class="meta">
     <span class={`stamp heat-${d.heat}`}>{heatInfo(d.heat).stamp}</span>
-    <span><a href={`/topics/${d.topic}/`}>{topicLabel(d.topic)}</a> / {audienceLabel(d.audience)}</span>
+    <span><a href={topicUrl(d.topic)}>{topicLabel(d.topic)}</a> / {audienceLabel(d.audience)}</span>
   </div>
   <H class="display"><a href={`/stories/${story.id}/`} style="text-decoration:none">{d.headline}</a></H>
   <p>{d.dek}</p>
