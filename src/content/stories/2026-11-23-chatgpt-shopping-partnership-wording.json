@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-23",
+  "heat": "cold",
+  "topic": "ai",
+  "audience": "trade",
+  "headline": "OpenAI dropped a promise about how ChatGPT picks products",
+  "dek": "OpenAI's help page on shopping in ChatGPT used to say product results were not influenced by any OpenAI partnerships. A copy archived on November 4 still had that line. The current page says results are not ads and points to a description of how products and merchants are selected, with no mention of partnerships, as Search Engine Roundtable reported on November 23.",
+  "why": "OpenAI has not said whether anything changed in practice. A wording change like this can come before deals that affect which merchants show up, so it is worth watching if you sell online or advise people who do.",
+  "doThis": "Save a copy of OpenAI's shopping help page today so you can compare it when the wording changes again, and keep running your usual product prompts in ChatGPT to see whether the same merchants still appear.",
+  "source": "Search Engine Roundtable",
+  "url": "https://www.seroundtable.com/chatgpt-product-results-may-be-influenced-by-openai-partnerships-42588.html"
+}

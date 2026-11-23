@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-23",
+  "heat": "warm",
+  "topic": "ads",
+  "audience": "both",
+  "headline": "Google Shopping ads can now say how many you sold",
+  "dek": "Google published a help page on November 23 for purchase signal annotations, labels on eligible Shopping ads such as \"100+ sold last 30 days.\" To qualify, an advertiser reports item-level sales with conversions with cart data, and the offer has to clear a privacy threshold and other criteria Google sets. Google then adds the label automatically.",
+  "why": "A sales count is social proof that costs nothing extra, and it only shows for stores whose conversion tracking sends item-level cart data. Stores with basic purchase tracking will likely miss out.",
+  "doThis": "Ask whoever manages your Google Ads whether your purchase conversions send cart data (item IDs, quantities and prices). If they do not, put that setup on the list before your next sale.",
+  "source": "Search Engine Roundtable",
+  "url": "https://www.seroundtable.com/google-ads-purchase-signal-annotations-42587.html"
+}
