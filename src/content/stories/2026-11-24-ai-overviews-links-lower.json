@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-24",
+  "heat": "cold",
+  "topic": "ai",
+  "audience": "trade",
+  "headline": "AI Overviews are placing their first link lower in the answer",
+  "dek": "Data shared by David Konitzny of Peec AI, an AI visibility vendor, shows 76.8% of AI Overviews had their first inline link in the top third of the answer on September 21. By November 20 that share was 51.8%, with sharp drops around October 9 and October 30. The post did not share sample size or which queries were tracked.",
+  "why": "If the first link sits further down, fewer people will see it before they stop reading, which could mean fewer clicks even for pages that are cited. This is one vendor's tracking with no published method, so treat it as an early signal. It is not a measured result yet.",
+  "doThis": "Pick five queries where your site is cited in an AI Overview and note where your link appears in the answer. Check the same queries again in a month.",
+  "source": "Search Engine Roundtable",
+  "url": "https://www.seroundtable.com/google-pushing-links-in-ai-overviews-down-42600.html"
+}
