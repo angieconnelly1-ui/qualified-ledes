@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-25",
+  "heat": "cold",
+  "topic": "ads",
+  "audience": "trade",
+  "headline": "ChatGPT ads run on queries advertisers never see",
+  "dek": "Three executives who run OpenAI's ad system told Adweek, in a November 23 subscriber story, that an internal agent called the orchestrator reads a user's conversation and writes its own search queries to find ads. It can draw on past chats when the user's ad personalization settings allow. Candidate ads are ranked and sent to an auction that weighs bids against how useful each ad is likely to be, and advertisers see only aggregate results.",
+  "why": "Without query or placement reporting, a small-budget test of ChatGPT ads is hard to judge, since you cannot see what triggered a click or why the spend went where it did.",
+  "doThis": "If a client wants to test ChatGPT ads, cap the budget, measure results by conversions in your own analytics, and hold off on scaling until OpenAI offers query or placement reports.",
+  "source": "Adweek",
+  "url": "https://www.adweek.com/media/chatgpts-agent-writes-its-own-queries-to-serve-ads-advertisers-dont-get-to-see-them/"
+}
