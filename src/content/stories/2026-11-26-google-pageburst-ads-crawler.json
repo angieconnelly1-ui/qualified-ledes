@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-26",
+  "heat": "warm",
+  "topic": "web",
+  "audience": "both",
+  "headline": "Google names Pageburst, the Ads crawler that skips robots.txt",
+  "dek": "On November 23, Google added 12 existing bots to its crawler documentation, saying they are not new. One of them, Pageburst, renders pages to check Google Ads quality, landing-page safety and page understanding, and it ignores robots.txt. Its user-agent strings look like Chrome on Linux or an iPad, with \"compatible; pageburst\" added and no \"Googlebot\" in them.",
+  "why": "A firewall or bot rule that only lets in Googlebot could be challenging or blocking Pageburst on your ad landing pages. Google's docs do not say what happens to your ads when that check gets blocked, so treat it as a risk to rule out. No penalty has been documented.",
+  "doThis": "If you run Google Ads, ask whoever manages your site or CDN to search the logs for \"pageburst\" and confirm those requests get the real page, not a challenge or a 403. Google says to verify the bot by its published special-crawler IP ranges, since user-agent strings can be faked.",
+  "source": "Search Engine Journal",
+  "url": "https://www.searchenginejournal.com/google-adds-pageburst-11-other-existing-bots-to-its-crawler-docs/599120/",
+  "featured": true
+}
