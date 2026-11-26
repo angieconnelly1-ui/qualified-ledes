@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-26",
+  "heat": "warm",
+  "topic": "local",
+  "audience": "both",
+  "headline": "Google's local pack shows \"No reviews\" for some businesses that have them",
+  "dek": "On the morning of November 26, Barry Schwartz of Search Engine Roundtable reported that Google's local pack is showing \"No reviews\" and no stars for some businesses that do have reviews, after a tip from Syed Amir on X. Clicking into the listing shows the real count. In Schwartz's example, the pack said no reviews while the profile showed 83 reviews averaging 4.7 stars. Not every business is affected, and Google had not commented when he posted.",
+  "why": "Someone comparing three listings in the pack may pass over the one that appears to have no reviews, so affected businesses could lose clicks while this lasts. It looks like a display bug on Google's side, and nobody has measured how widespread it is.",
+  "doThis": "Search your main category and city in a private browser window today, and if your listing shows \"No reviews\" in the pack, save a dated screenshot and post it in the Google Business Profile Help Community before changing anything on your profile.",
+  "source": "Search Engine Roundtable",
+  "url": "https://www.seroundtable.com/google-local-pack-no-reviews-bug-42624.html"
+}

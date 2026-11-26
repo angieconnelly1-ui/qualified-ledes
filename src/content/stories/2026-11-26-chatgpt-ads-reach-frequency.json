@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-26",
+  "heat": "warm",
+  "topic": "ads",
+  "audience": "trade",
+  "headline": "ChatGPT Ads adds reach and frequency reporting",
+  "dek": "OpenAI emailed advertisers a product update, reported by Search Engine Roundtable on the evening of November 25, that adds reach, frequency, unique CTR, unique CPC and cost per 1,000 people reached to Ads Manager and the Ads API. Single image ads now carry a default \"Learn more\" link to the landing page, and advertisers can hide sale prices pulled from a product feed. Business Agents, the chat assistants set up in the ChatGPT Business Hub, are opening to eligible ecommerce and online service businesses in markets outside the U.S., though the update as reported does not name the countries.",
+  "why": "Reach and frequency tell you how many people a small test budget reached and how often each one saw the ad, which makes a test easier to judge. The update adds no query or placement reporting, so what triggered an ad is still hidden.",
+  "doThis": "If you run a ChatGPT Ads test, add the new columns under \"Ad Viewers\" in Ads Manager and check frequency each week; if frequency climbs while clicks stay flat, hold the budget where it is before adding more.",
+  "source": "Search Engine Roundtable",
+  "url": "https://www.seroundtable.com/chatgpt-ads-updates-42623.html"
+}
