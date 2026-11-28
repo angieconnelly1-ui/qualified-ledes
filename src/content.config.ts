@@ -56,4 +56,23 @@ const guides = defineCollection({
   }),
 });
 
-export const collections = { stories, roundups, guides };
+// RVA Ledes: the weekly Richmond B2B news roundup, one Markdown file per week.
+const rva = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/rva' }),
+  schema: z.object({
+    title: z.string(),
+    seoTitle: z.string().optional(),
+    description: z.string(),
+    summary: z.string(),
+    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    takeaways: z.array(z.string()).default([]),
+    keywords: z.array(z.string()).default([]),
+    faq: z
+      .array(z.object({ q: z.string(), a: z.string(), link: z.object({ href: z.string(), text: z.string() }).optional() }))
+      .default([]),
+    draft: z.boolean().optional(),
+  }),
+});
+
+export const collections = { stories, roundups, guides, rva };
