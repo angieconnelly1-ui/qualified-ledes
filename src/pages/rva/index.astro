@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import StoryFeed from '../../components/StoryFeed.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import { getStories, formatDate } from '../../data/stories';
+import { getRvaRoundups, RVA } from '../../data/rva';
+import { topicUrl } from '../../data/taxonomy';
+
+const roundups = await getRvaRoundups();
+const stories = (await getStories()).filter((s) => s.data.topic === 'rva');
+const pageUrl = new URL(RVA.path, Astro.site).href;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: RVA.name,
+    description: RVA.blurb,
+    url: pageUrl,
+    isPartOf: { '@id': 'https://qualifiedledes.com/#website' },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: roundups.slice(0, 20).map((r, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: new URL(`/rva/${r.id}/`, Astro.site).href,
+        name: r.data.title,
+      })),
+    },
+  },
+];
+---
+<Base title={RVA.h1} description={RVA.blurb} jsonLd={jsonLd}>
+  <header style="display:flex;flex-direction:column;gap:8px">
+    <p class="label" style="margin:0">Richmond, Virginia</p>
+    <h1 class="display" style="margin:0;font-size:clamp(40px,6vw,72px);line-height:1">{RVA.name}</h1>
+    <p class="subtag">Richmond business news for marketers and owners, every week.</p>
+    <p style="margin:8px 0 0;max-width:720px">Each weekly roundup covers the Richmond and Virginia business news that affects how local companies sell and market: hires, deals and launches, state proposals that touch marketing data, and the business events coming up. Every item links to its original source, and each roundup ends with a short list of things to do that week.</p>
+  </header>
+  <div class="layout">
+    <main id="content">
+      <h2 class="day-head display">Weekly roundups</h2>
+      {roundups.length === 0 && <p>The first RVA Ledes roundup is on its way.</p>}
+      <ul class="list">
+        {roundups.map((r) => (
+          <li class="panel" style="display:flex;flex-direction:column;gap:6px">
+            <span class="label">{formatDate(r.data.date, { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+            <h3 class="display" style="margin:0;font-size:28px"><a href={`/rva/${r.id}/`}>{r.data.title}</a></h3>
+            <p style="margin:0">{r.data.summary}</p>
+          </li>
+        ))}
+      </ul>
+      {stories.length > 0 && (
+        <>
+          <h2 class="day-head display" style="margin-top:8px">Latest Richmond and Virginia ledes</h2>
+          <StoryFeed stories={stories.slice(0, 12)} showTopicFilter={false} leadFirst={false} />
+          <a href={topicUrl('rva')}>All Richmond and Virginia news</a>
+        </>
+      )}
+    </main>
+    <Sidebar />
+  </div>
+</Base>

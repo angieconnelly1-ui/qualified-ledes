@@ -45,6 +45,10 @@ Topic hubs live at keyword URLs (`/topics/ai-search-seo/` and so on; see `slug` 
 
 One JSON file per week in `src/content/roundups/`. `picks` lists story file names (without `.json`). Set `draft: true` until it is approved; drafts are hidden from the RSS feed that the email tool reads, and set to noindex.
 
+## RVA Ledes
+
+The weekly Richmond business roundup lives at `/rva/`, one Markdown file per week in `src/content/rva/`, named `richmond-b2b-news-roundup-YYYY-MM-DD.md`. Frontmatter: `title`, `seoTitle`, `description`, `summary`, `date`, `updated` (both quoted `YYYY-MM-DD`), `takeaways`, `keywords`, `faq` (list of `q`/`a` with an optional `link` of `href`/`text`), optional `draft`. Daily Richmond stories still use the `rva` topic and show on the RVA Ledes page. The first two roundups moved here from angieconnelly.com in November 2026; that site 301-redirects the old URLs.
+
 ## Reader features
 
 `public/reader.js` powers saves, "I did this" checkmarks, "new since your last visit" badges, copy-link and the analytics consent bar. `src/components/PaperBar.astro` handles "My paper" preferences. Everything is stored in the visitor's browser (localStorage keys start with `ql-`). Search is Pagefind, built after Astro (`npm run build`), indexing story and guide pages only.

@@ -6,6 +6,7 @@
 - [Latest stories](https://qualifiedledes.com/): the last two weeks of ledes, filterable by reader, topic and urgency
 - [Archive](https://qualifiedledes.com/archive/): every story, newest first
 - [Weekly roundups](https://qualifiedledes.com/roundups/): the week's best stories
+- [RVA Ledes](https://qualifiedledes.com/rva/): a weekly roundup of Richmond and Virginia business news for B2B teams, small business owners and nonprofits, with upcoming local business events
 - [Topics](https://qualifiedledes.com/topics/): AI search and SEO, local SEO and Google Business Profile, ads and social media, websites and AI tools, nonprofit marketing, MSP and B2B marketing, privacy and consent, Richmond and Virginia, freelance and agency pricing
 - [About](https://qualifiedledes.com/about/): who curates the site
 - [Privacy policy](https://qualifiedledes.com/privacy/)

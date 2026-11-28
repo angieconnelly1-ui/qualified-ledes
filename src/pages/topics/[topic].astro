@@ -47,6 +47,7 @@ const jsonLd = [
     <p class="label" style="margin:0"><a href="/topics/">Topics</a></p>
     <h1 class="display" style="margin:0;font-size:clamp(36px,5.5vw,64px);line-height:1.05">{topic.h1}</h1>
     <p class="subtag">{topic.blurb}</p>
+    {topic.id === 'rva' && <p style="margin:4px 0 0">For the weekly Richmond business roundup, see <a href="/rva/">RVA Ledes</a>.</p>}
   </header>
   <div class="layout">
     <main id="content">
